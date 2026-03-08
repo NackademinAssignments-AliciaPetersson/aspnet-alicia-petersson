@@ -1,3 +1,40 @@
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Medium.ttf");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-SemiBold.ttf");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Bold.ttf");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "DMSans";
+    src: url("../fonts/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 :root {
     --clr-accent-400: #D6EB31;
 
@@ -10,7 +47,12 @@
     --clr-neutral-400: #A7A7A7;
     --clr-neutral-500: #6F6F6F;
     --clr-neutral-900: #000000;
-    
+
+    --ff-poppins: "Poppins", sans-serif;
+    --ff-dmsans: "DMSans", sans-serif;
+    --ff-heading: var(--ff-poppins);
+    --ff-body: var(--ff-dmsans);
+
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
