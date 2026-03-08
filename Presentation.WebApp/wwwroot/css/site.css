@@ -57,3 +57,54 @@
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
 }
+
+/* ----- RESETS ----- */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+p, 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+img, 
+picture,
+svg {
+    display: block;
+    width: 100%;
+}
+
+body {
+    line-height: 1.5;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--ff-heading);
+}
+
+p {
+    font-family: var(--ff-body);
+}
