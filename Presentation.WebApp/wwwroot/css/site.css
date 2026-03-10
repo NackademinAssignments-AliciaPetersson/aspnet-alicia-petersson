@@ -53,6 +53,11 @@
     --ff-heading: var(--ff-poppins);
     --ff-body: var(--ff-dmsans);
 
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 600;
+    --fw-semi-bold: 700;
+
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
