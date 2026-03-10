@@ -71,8 +71,7 @@ h3,
 h4, 
 h5, 
 h6, 
-p, 
-ul {
+p {
     margin: 0;
     padding: 0;
 }
@@ -94,6 +93,8 @@ svg {
 body {
     line-height: 1.5;
     height: 100%;
+    margin: 0;
+    font-family: var(--ff-body);
 }
 
 h1,
@@ -105,6 +106,9 @@ h6 {
     font-family: var(--ff-heading);
 }
 
-p {
-    font-family: var(--ff-body);
+/* BASIC APP LAYOUT */
+.app-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100dvh;
 }
