@@ -48,6 +48,8 @@
     --clr-neutral-500: #6F6F6F;
     --clr-neutral-900: #000000;
 
+    --body-bg-color: var(--clr-neutral-200);
+
     --ff-poppins: "Poppins", sans-serif;
     --ff-dmsans: "DMSans", sans-serif;
     --ff-heading: var(--ff-poppins);
@@ -57,6 +59,9 @@
     --fw-medium: 500;
     --fw-semi-bold: 600;
     --fw-semi-bold: 700;
+
+    --fs-section-heading: 3rem;
+    --fs-body: 1rem;
 
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
@@ -100,6 +105,7 @@ body {
     height: 100%;
     margin: 0;
     font-family: var(--ff-body);
+    background-color: var(--body-bg-color);
 }
 
 h1,
