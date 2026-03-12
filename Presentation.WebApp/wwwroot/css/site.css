@@ -14,8 +14,7 @@
     --body-bg-color: var(--clr-neutral-200);
     --heading-text-color: var(--clr-primary-400);
     --body-text-color: var(--clr-neutral-500);
-    --header-text-color: var(--clr-neutral-100);
-    --footer-text-color: var(--clr-neutral-100);
+    --header-text-color: var(--clr-neutral-100);    
     --divider-color: hsl(from var(--clr-accent-400) h s l / 0.2);
 
     --ff-poppins: "Poppins", sans-serif;
@@ -32,6 +31,7 @@
     --fs-section-sub-heading: 1.75rem;
     --fs-hero-heading: 3.375rem;
     --fs-body: 1rem;
+    --fs-body-small: 0.875rem;
 
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
@@ -67,7 +67,7 @@ img,
 picture,
 svg {
     display: block;
-    width: 100%;
+    max-width: 100%;
 }
 
 body {
@@ -89,9 +89,29 @@ h6 {
     color: var(--heading-text-color);
 }
 
+address {
+    font-style: normal;
+}
+
 /* BASIC APP LAYOUT */
 .app-layout {
     display: grid;
     grid-template-rows: auto 1fr auto;
     height: 100dvh;
+    padding: 1rem;
+    max-width: 1920px;
+    margin-inline: auto;
+}
+
+/* UTILITIES */
+.text-right {
+    text-align: right;
+}
+
+.divider {
+    border: none;
+    background-color: var(--divider-color);
+    margin-block: 0;
+    height: 2px;
+    width: 100%;
 }
