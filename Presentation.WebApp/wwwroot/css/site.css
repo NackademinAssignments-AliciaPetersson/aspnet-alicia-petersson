@@ -1,40 +1,3 @@
-@font-face {
-    font-family: "Poppins";
-    src: url("../fonts/Poppins-Regular.ttf");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Poppins";
-    src: url("../fonts/Poppins-Medium.ttf");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Poppins";
-    src: url("../fonts/Poppins-SemiBold.ttf");
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Poppins";
-    src: url("../fonts/Poppins-Bold.ttf");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "DMSans";
-    src: url("../fonts/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-
 :root {
     --clr-accent-400: #D6EB31;
 
@@ -53,6 +16,7 @@
     --body-text-color: var(--clr-neutral-500);
     --header-text-color: var(--clr-neutral-100);
     --footer-text-color: var(--clr-neutral-100);
+    --divider-color: hsl(from var(--clr-accent-400) h s l / 0.2);
 
     --ff-poppins: "Poppins", sans-serif;
     --ff-dmsans: "DMSans", sans-serif;
