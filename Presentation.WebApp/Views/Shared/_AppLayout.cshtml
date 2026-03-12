@@ -9,9 +9,13 @@
     @* <link rel="stylesheet" href="~/Presentation.WebApp.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
-    <main>
-        @RenderBody()
-    </main>
+    <div class="app-layout">
+        <partial name="Partials/_Header" />
+        <main>
+            @RenderBody()
+        </main>
+        <partial name="Partials/_Footer" />
+    </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

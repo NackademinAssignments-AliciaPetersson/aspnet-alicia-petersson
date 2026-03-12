@@ -1,0 +1,133 @@
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Medium.ttf");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-SemiBold.ttf");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url("../fonts/Poppins-Bold.ttf");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "DMSans";
+    src: url("../fonts/DMSans-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+:root {
+    --clr-accent-400: #D6EB31;
+
+    --clr-primary-100: #0805171A;
+    --clr-primary-400: #27252F;
+
+    --clr-neutral-100: #FFFFFF;
+    --clr-neutral-200: #F7F7F7;
+    --clr-neutral-300: #D9D9D9;
+    --clr-neutral-400: #A7A7A7;
+    --clr-neutral-500: #6F6F6F;
+    --clr-neutral-900: #000000;
+
+    --body-bg-color: var(--clr-neutral-200);
+    --heading-text-color: var(--clr-primary-400);
+    --body-text-color: var(--clr-neutral-500);
+    --header-text-color: var(--clr-neutral-100);
+    --footer-text-color: var(--clr-neutral-100);
+
+    --ff-poppins: "Poppins", sans-serif;
+    --ff-dmsans: "DMSans", sans-serif;
+    --ff-heading: var(--ff-poppins);
+    --ff-body: var(--ff-dmsans);
+
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 600;
+    --fw-semi-bold: 700;
+
+    --fs-section-heading: 3rem;
+    --fs-section-sub-heading: 1.75rem;
+    --fs-hero-heading: 3.375rem;
+    --fs-body: 1rem;
+
+    --border-radius-standard: 20px;
+    --border-radius-btn: 50px;
+    --border-radius-inputs: 10px;
+}
+
+/* ----- RESETS ----- */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6, 
+p {
+    margin: 0;
+    padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+img, 
+picture,
+svg {
+    display: block;
+    width: 100%;
+}
+
+body {
+    line-height: 1.5;
+    height: 100%;
+    margin: 0;
+    font-family: var(--ff-body);
+    background-color: var(--body-bg-color);
+    color: var(--body-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--ff-heading);
+    color: var(--heading-text-color);
+}
+
+/* BASIC APP LAYOUT */
+.app-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100dvh;
+}
