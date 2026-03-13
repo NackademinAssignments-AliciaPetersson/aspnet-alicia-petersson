@@ -139,7 +139,7 @@ footer {
         "divider-bottom divider-bottom"
         "copyright copyright";
 
-    & .logo {
+    & .logo-link {
         grid-area: logo;
         align-self: center;
         padding-block: var(--block-spacing);
@@ -204,7 +204,7 @@ footer {
             display: none;
         }
 
-        .logo {
+        .logo-link {
             justify-self: center;
             margin-inline: auto;
         }
@@ -220,10 +220,6 @@ footer {
             "left-column left-column"
             "divider-bottom divider-bottom"
             "copyright copyright";
-
-        & .logo {
-            height: 80px;
-        }
 
         & .copyright {
             font-size: var(--fs-body-small);
