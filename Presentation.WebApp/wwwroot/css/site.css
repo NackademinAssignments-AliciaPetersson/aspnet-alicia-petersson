@@ -123,6 +123,7 @@ address {
     border-radius: var(--border-radius-btn);
     border: 2px solid var(--primary-btn-bg-clr);
     cursor: pointer;
+    text-decoration: none;
     transition: all 0.4s ease-in-out;
     transition-property: color, fill;
 }
