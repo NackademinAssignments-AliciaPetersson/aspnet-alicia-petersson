@@ -1,1 +1,31 @@
-﻿<header>HEADER</header>
+﻿<header>
+    <div class="desktop-header-section">        
+        <a class="logo" href="/">
+            <img src="~/images/logotype.png" alt="CoreFitness Logo">
+        </a> 
+        
+        <nav class="main-menu menu">
+            <a class="menu-item" href="/">
+                Fitness Centers
+            </a>
+            <a class="menu-item" href="/">
+                Memberships
+            </a>
+            <a class="menu-item" href="/">
+                Training
+            </a>
+            <a class="menu-item" href="/">
+                Customer Service
+            </a>
+            <a class="menu-item" href="/">
+                Store
+            </a>
+        </nav>        
+
+        <nav class="account-menu menu">
+            <a class="signup menu-item" asp-controller="Auth" asp-action="SignUp">Become Member</a>
+            <a class="primary-button offset" asp-controller="Account" asp-action="Index">My Account</a>
+        </nav>
+    </div>
+</header>
+
