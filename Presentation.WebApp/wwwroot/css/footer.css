@@ -4,10 +4,14 @@
 footer {
     --fs-footer-heading: var(--fs-section-sub-heading);
     --footer-text-color: var(--clr-neutral-100);
-    --footer-bg-color: var(--clr-primary-400);
+    --footer-bg-color: var(--clr-primary-500);
     --inline-spacing: 5.625rem;
     --block-spacing: 2.25rem;
+
     background-color: var(--footer-bg-color);
+    background-image: url(../images/dark-section-img.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--footer-text-color);
     padding-inline: var(--inline-spacing);
     border-radius: var(--border-radius-standard);

@@ -2,7 +2,7 @@
   --------  HEADER ---------
 */
 header {
-    --header-bg-color: var(--clr-primary-400);
+    --header-bg-color: var(--clr-primary-500);
     --header-text-color: var(--clr-neutral-100);
     --menu-item-text-color: var(--clr-neutral-100);
     --menu-item-hover-text-color: var(--clr-accent-400);
@@ -10,9 +10,13 @@ header {
     --dropdown-menu-bg-clr: var(--clr-accent-400);
     --dropdown-menu-text-clr: var(--clr-primary-400);
     --dropdown-menu-hover-text-clr: hsl(from var(--clr-primary-400) h s l / 0.8);
+
     padding: 1.5rem 2rem;
     border-radius: var(--border-radius-standard);
     background-color: var(--header-bg-color);
+    background-image: url(../images/dark-section-img.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--header-text-color);
 
     .icon-btn {
