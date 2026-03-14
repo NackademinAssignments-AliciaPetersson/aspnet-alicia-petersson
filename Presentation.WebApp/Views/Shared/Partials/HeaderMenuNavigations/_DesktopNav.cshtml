@@ -1,0 +1,41 @@
+﻿<nav class="main-menu menu">
+	<a class="menu-item" href="/">Fitness Centers</a>
+	<a class="menu-item" href="/">Memberships</a>
+	<div class="menu-item dropdown">
+		<span class="dropdown-trigger">
+			Training
+			<partial name="Partials/Icons/_ChevronDown" />
+		</span>
+		<div class="dropdown-menu">
+			<ul>
+				<li>
+					<a class="dropdown-item" href="/">Personal Training</a>
+				</li>
+				<li><a class="dropdown-item" href="/">Group Training</a></li>
+				<li><a class="dropdown-item" href="/">Padel</a></li>
+			</ul>
+		</div>
+	</div>
+	<a class="menu-item" href="/"> Customer Service </a>
+	<a class="menu-item" href="/"> Store </a>
+</nav>
+
+<nav class="menu">
+	<ul class="account-menu">
+		<li>
+			<a class="signup menu-item"
+			   asp-controller="Auth"
+			   asp-action="SignUp">
+				Become Member
+			</a>
+		</li>
+		<li>
+			<a class="primary-btn"
+			   asp-controller="Account"
+			   asp-action="Index">
+				Sign In
+				<partial name="Partials/Icons/_ChevronRight" />
+			</a>
+		</li>
+	</ul>
+</nav>
