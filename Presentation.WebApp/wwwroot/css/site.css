@@ -3,6 +3,8 @@
 
     --clr-primary-100: #0805171A;
     --clr-primary-400: #27252F;
+    --clr-primary-500: #131020;
+    --clr-primary-600: #080517;
 
     --clr-neutral-100: #FFFFFF;
     --clr-neutral-200: #F7F7F7;
@@ -36,6 +38,10 @@
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
+
+    --primary-btn-icon-width: 25px;
+    --mobile-menu-icon-width: 45px;
+    --chevron-width: var(--icon-width);
 }
 
 /* ----- RESETS ----- */
@@ -93,7 +99,7 @@ address {
     font-style: normal;
 }
 
-/* BASIC APP LAYOUT */
+/* ----- BASIC APP LAYOUT ----- */
 .app-layout {
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -103,7 +109,7 @@ address {
     margin-inline: auto;
 }
 
-/* UTILITIES */
+/* ----- UTILITIES ----- */
 .text-right {
     text-align: right;
 }
@@ -116,144 +122,35 @@ address {
     width: 100%;
 }
 
-/* 
-  --------  FOOTER --------
-*/
-footer {
-    --fs-footer-heading: var(--fs-section-sub-heading);
-    --footer-text-color: var(--clr-neutral-100);
-    --footer-bg-color: var(--clr-primary-400);
-    --inline-spacing: 5.625rem;
-    --block-spacing: 2.25rem;
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    padding-inline: var(--inline-spacing);
-    border-radius: var(--border-radius-standard);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    grid-template-areas:
-        "logo heading"
-        "divider-top divider-top"
-        "left-column right-column"
-        "divider-bottom divider-bottom"
-        "copyright copyright";
+.primary-btn {
+    --primary-btn-bg-clr: var(--clr-accent-400);
+    --primary-btn-text-clr: var(--clr-primary-400);
+    --btn-padding-inline: 1.5rem;
+    --btn-padding-block: 1rem;
 
-    & .logo {
-        grid-area: logo;
-        align-self: center;
-        padding-block: var(--block-spacing);
-    }
-
-
-    & .footer-heading {
-        grid-area: heading;
-        padding-block: var(--block-spacing);
-    }
-
-    & .divider-top {
-        grid-area: divider-top;
-    }
-
-    & .divider-bottom {
-        grid-area: divider-bottom;
-    }
-
-    & .left-column {
-        grid-area: left-column;
-        max-width: 35ch;
-        padding-block: var(--block-spacing);
-        gap: 1.5rem;
-    }
-
-    & .right-column {
-        grid-area: right-column;
-        padding-block: var(--block-spacing);
-        gap: 2.5rem;
-        text-align: right;
-    }
-
-    & .hours-wrapper {
-        display: grid;
-        gap: 1.125rem;
-
-        & p {
-            line-height: 30px;
-        }
-    }
-
-    & address {
-        font-size: var(--fs-body-small);
-    }
-
-    & .left-column,
-    & .right-column {
-        display: grid;
-    }
-
-    & .copyright {
-        grid-area: copyright;
-        text-align: center;
-        margin-block: var(--block-spacing);
-    }
-
-    @media (width <= 768px) {
-        --inline-spacing: 2.5rem;
-
-        .footer-heading {
-            display: none;
-        }
-
-        .logo {
-            justify-self: center;
-            margin-inline: auto;
-        }
-    }
-    /* MOBILE */
-    @media (width <= 450px) {
-        --inline-spacing: 1.25rem;
-        --block-spacing: 1.25rem;
-        grid-template-areas:
-            "logo logo"
-            "divider-top divider-top"
-            "right-column right-column"
-            "left-column left-column"
-            "divider-bottom divider-bottom"
-            "copyright copyright";
-
-        & .logo {
-            height: 80px;
-        }
-
-        & .copyright {
-            font-size: var(--fs-body-small);
-            text-wrap: pretty;
-        }
-
-        & .left-column,
-        & .right-column {
-            text-align: center;
-        }
-
-        & .globe-img {
-            display: inline;
-        }
-    }
+    display: inline-flex;
+    gap: .5rem;
+    background-color: var(--primary-btn-bg-clr);
+    color: var(--primary-btn-text-clr);
+    fill: var(--primary-btn-text-clr);
+    padding: var(--btn-padding-block) var(--btn-padding-inline);
+    border-radius: var(--border-radius-btn);
+    border: 2px solid var(--primary-btn-bg-clr);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out;
+    transition-property: color, fill;
 }
 
-.footer-heading {
-    font-size: var(--fs-footer-heading);
-    font-family: var(--ff-heading);
-    max-width: 40ch;
-    justify-self: self-end;
+.icon-btn,
+.btn-blank {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }
 
-.footer-sub-heading {
-    color: var(--footer-text-color);
-    font-size: var(--fs-body);
-    font-family: var(--ff-heading);
-    font-weight: var(--fw-semi-bold);
+.chevron {
+    width: var(--primary-btn-icon-width);
 }
-/* 
-  --------  END FOOTER ---------
-*/

@@ -1,0 +1,46 @@
+﻿<nav class="main-menu menu">
+	<a class="menu-item" asp-controller="FitnessCenters" asp-action="Index">Fitness Centers</a>
+	<a class="menu-item" asp-controller="Memberships" asp-action="Index">Memberships</a>
+	<div class="menu-item dropdown">
+		<button 
+			type="button"
+			aria-expanded="false"
+			aria-controls="training-group"
+			class="btn-blank menu-item dropdown-trigger desktop-dropdown-trigger"
+		>
+			Training
+			<partial name="Partials/Icons/_ChevronDown" />
+		</button>
+		<div class="dropdown-menu">
+			<ul>
+				<li>
+					<a class="dropdown-item" asp-controller="Trainings" asp-action="PersonalTraining">Personal Training</a>
+				</li>
+				<li><a class="dropdown-item" asp-controller="Trainings" asp-action="GroupTraining">Group Training</a></li>
+				<li><a class="dropdown-item" asp-controller="Trainings" asp-action="Padel">Padel</a></li>
+			</ul>
+		</div>
+	</div>
+	<a class="menu-item" asp-controller="CustomerService" asp-action="Index"> Customer Service </a>
+	<a class="menu-item" asp-controller="Store" asp-action="Index"> Store </a>
+</nav>
+
+<nav class="menu">
+	<ul class="account-menu">
+		<li>
+			<a class="signup menu-item"
+			   asp-controller="Auth"
+			   asp-action="SignUp">
+				Become Member
+			</a>
+		</li>
+		<li>
+			<a class="primary-btn"
+			   asp-controller="Auth"
+			   asp-action="SignIn">
+				Sign In
+				<partial name="Partials/Icons/_ChevronRight" />
+			</a>
+		</li>
+	</ul>
+</nav>

@@ -1,0 +1,67 @@
+﻿<div class="mobile-menu">
+	<a class="account-button icon-btn"
+	   aria-label="Sign in to your account"
+	   asp-controller="Auth"
+	   asp-action="SignIn">
+		<partial name="Partials/Icons/_IconAccount" />
+	</a>
+
+	<button type="button"
+			class="menu-button mobile-nav-toggle icon-btn"
+			aria-label="Open menu"
+			aria-controls="mobileFlyoutMenu"
+			aria-expanded="false">
+		<partial name="Partials/Icons/_IconBars" />
+	</button>
+
+	<div class="mobile-nav-wrapper">
+		<div class="mobile-nav-overlay" data-mobile-nav-close></div>
+
+		<aside id="mobileFlyoutMenu"
+			   class="mobile-flyout-menu"
+			   aria-hidden="true">
+			<div class="mobile-flyout-header">
+				<span class="mobile-flyout-title">Menu</span>
+
+				<button type="button"
+						class="mobile-flyout-close icon-btn"
+						aria-label="Close menu"
+						data-mobile-nav-close>
+					<partial name="Partials/Icons/_IconClose" />					
+				</button>
+			</div>
+
+			<nav class="mobile-menu-list" aria-label="Mobile navigation">
+				<a class="menu-item mobile-menu-link" asp-controller="FitnessCenters" asp-action="Index">Fitness Center</a>
+				<a class="menu-item mobile-menu-link" asp-controller="Memberships" asp-action="Index">Memberships</a>
+
+				<div class="mobile-menu-group">
+					<button type="button"
+							class="mobile-menu-group-toggle btn-blank menu-item dropdown"
+							aria-expanded="false"
+							aria-controls="training-group">
+						<span class="menu-item dropdown-trigger">
+							Training
+							<partial name="Partials/Icons/_ChevronDown" />
+						</span>
+					</button>
+
+					<div id="training-group" class="mobile-submenu" aria-hidden="true">
+						<div class="mobile-submenu-inner">
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="PersonalTraining">
+								Personal Training
+							</a>
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="GroupTraining">
+								Group Training
+							</a>
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="Padel"> Padel </a>
+						</div>
+					</div>
+				</div>
+
+				<a class="menu-item mobile-menu-link" asp-controller="CustomerService" asp-action="Index">Customer Service</a>
+				<a class="menu-item mobile-menu-link" asp-controller="Store" asp-action="Index">Store</a>
+			</nav>
+		</aside>
+	</div>
+</div>
