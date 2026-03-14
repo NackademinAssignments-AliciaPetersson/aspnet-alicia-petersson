@@ -1,8 +1,8 @@
 ﻿<div class="mobile-menu">
 	<a class="account-button icon-btn"
 	   aria-label="Sign in to your account"
-	   asp-controller="Account"
-	   asp-action="Index">
+	   asp-controller="Auth"
+	   asp-action="SignIn">
 		<partial name="Partials/Icons/_IconAccount" />
 	</a>
 
@@ -32,8 +32,8 @@
 			</div>
 
 			<nav class="mobile-menu-list" aria-label="Mobile navigation">
-				<a class="menu-item mobile-menu-link" href="/">Fitness Center</a>
-				<a class="menu-item mobile-menu-link" href="/">Memberships</a>
+				<a class="menu-item mobile-menu-link" asp-controller="FitnessCenters" asp-action="Index">Fitness Center</a>
+				<a class="menu-item mobile-menu-link" asp-controller="Memberships" asp-action="Index">Memberships</a>
 
 				<div class="mobile-menu-group">
 					<button type="button"
@@ -48,19 +48,19 @@
 
 					<div id="training-group" class="mobile-submenu" aria-hidden="true">
 						<div class="mobile-submenu-inner">
-							<a class="mobile-submenu-link" href="/">
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="PersonalTraining">
 								Personal Training
 							</a>
-							<a class="mobile-submenu-link" href="/">
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="GroupTraining">
 								Group Training
 							</a>
-							<a class="mobile-submenu-link" href="/"> Padel </a>
+							<a class="mobile-submenu-link" asp-controller="Trainings" asp-action="Padel"> Padel </a>
 						</div>
 					</div>
 				</div>
 
-				<a class="menu-item mobile-menu-link" href="/">Customer Service</a>
-				<a class="menu-item mobile-menu-link" href="/">Store</a>
+				<a class="menu-item mobile-menu-link" asp-controller="CustomerService" asp-action="Index">Customer Service</a>
+				<a class="menu-item mobile-menu-link" asp-controller="Store" asp-action="Index">Store</a>
 			</nav>
 		</aside>
 	</div>
