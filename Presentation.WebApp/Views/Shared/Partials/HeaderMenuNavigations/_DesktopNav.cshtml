@@ -2,10 +2,15 @@
 	<a class="menu-item" href="/">Fitness Centers</a>
 	<a class="menu-item" href="/">Memberships</a>
 	<div class="menu-item dropdown">
-		<span class="dropdown-trigger">
+		<button 
+			type="button"
+			aria-expanded="false"
+			aria-controls="training-group"
+			class="btn-blank menu-item dropdown-trigger desktop-dropdown-trigger"
+		>
 			Training
 			<partial name="Partials/Icons/_ChevronDown" />
-		</span>
+		</button>
 		<div class="dropdown-menu">
 			<ul>
 				<li>

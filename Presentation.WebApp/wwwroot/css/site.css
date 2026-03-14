@@ -409,6 +409,11 @@ header {
         transition: all 0.3s ease-in-out;
         transition-property: opacity, visibility;
 
+        &.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
         & ul {
             list-style: disc;
             padding-inline-start: 20px;
