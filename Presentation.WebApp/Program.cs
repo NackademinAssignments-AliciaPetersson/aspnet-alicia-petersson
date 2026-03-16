@@ -21,6 +21,8 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
