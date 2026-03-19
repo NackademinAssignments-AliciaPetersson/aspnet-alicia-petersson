@@ -37,6 +37,8 @@
     --fs-body: 1rem;
     --fs-badge: 0.875rem;
 
+    --section-block-margin: 6rem;
+
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
@@ -111,7 +113,35 @@ address {
     margin-inline: auto;
 }
 
-/* UTILITIES */
+.container {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+
+    /* @media (width <= 1200px) {
+        max-width: 1140px;
+    }
+
+    @media (width <= 992px) {
+        max-width: 960px;
+    }
+
+    @media (width <= 768px) {
+        width: 100%;
+        max-width: 720px;
+    }
+
+    @media (width <= 576px) {   
+        max-width: 100%;
+    } */
+
+    &.full {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* SHARED COMPONENTS */
 .text-right {
     text-align: right;
 }
@@ -191,6 +221,7 @@ address {
     font-weight: var(--fw-semi-bold);
     font-family: var(--ff-badge);
     background-color: var(--clr-primary-400);
+    color: var(--clr-neutral-100);
     padding: 0.5rem 1rem;
     border-radius: 100vW;
     display: inline-flex;
@@ -205,4 +236,20 @@ address {
         background-color: var(--clr-accent-400);
         border-radius: 50%;
     }
+}
+
+.section-heading {
+    font-size: var(--fs-section-heading);
+    color: var(--clr-primary-400);
+    font-weight: var(--fw-medium);
+
+    @media (width <= 425px) {
+        --fs-section-heading: 2.5rem;
+    }
+}
+
+.card {
+    background-color: var(--clr-neutral-100);
+    border-radius: var(--border-radius-standard);
+    padding: 1rem;
 }

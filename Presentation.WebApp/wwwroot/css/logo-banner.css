@@ -8,6 +8,7 @@
     --banner-txt-clr: var(--clr-primary-400);
     --banner-logo-clr: var(--clr-primary-600);
     --ff-logo-banner: var(--ff-poppins);
+
     background-color: var(--banner-bg);
     margin-block: 1rem;
     padding: var(--banner-block-padding) var(--banner-inline-padding);
@@ -15,7 +16,8 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-
+    min-height: 120px;
+    
     .logos-wrapper {
         display: flex;
         align-items: center;
@@ -38,7 +40,6 @@
     }
 
     @media (width < 1698px) {
-        --banner-block-padding: 0.875rem;
         --banner-inline-padding: 2rem;
 
         .banner-slogan {

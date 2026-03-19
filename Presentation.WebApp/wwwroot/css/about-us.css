@@ -1,0 +1,53 @@
+﻿/* 
+  -------- ABOUT US ---------
+*/
+.about-us-section {
+    margin-block: var(--section-block-margin);
+    display: grid;
+    column-gap: 4rem;
+    row-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+
+    & .right-column {
+        display: grid;
+        align-content: start;
+        justify-items: start;
+        gap: 3rem;
+    }
+
+    & .text-wrapper {
+        display: grid;
+        justify-items: start;
+        gap: 1rem;
+        color: var(--clr-neutral-600);
+    }
+
+    & .card {
+        padding: 2.313rem;
+        color: var(--clr-primary-400);
+        font-weight: var(--fw-bold);
+        background-image: url("/images/icon-about-body-quote.png");
+        background-repeat: no-repeat;
+        background-position: right 30px top 35px;
+    }
+}
+
+@media (width < 992px) {
+    .about-us-section {
+        --section-block-margin: 1rem;
+        grid-template-columns: 1fr;
+        text-align: center;
+
+        & .right-column {
+            grid-row: 1;
+        }
+
+        & .badge,
+        & img {
+            justify-self: center;
+        }
+    }
+}
+/* 
+  --------  END ABOUT US---------
+*/
