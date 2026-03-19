@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="~/css/hero.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/logo-banner.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/about-us.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/our-programs.css" asp-append-version="true" />
 }
 @{
     ViewData["Title"] = "Home";
@@ -39,5 +40,18 @@
 				you grow stronger every day.
 			</p>
 		</div>
+	</div>
+</section>
+
+<section class="card our-programs-section">
+	<div class="container">
+		<h2 class="badge">Our Program</h2>
+		<h3 class="section-heading">Professional training program for stronger health</h3>
+		<div class="image-wrapper">
+			<img src="~/images/program-image_1.png" alt="" />
+			<img src="~/images/program-image_2.png" alt="" />
+			<img src="~/images/program-image_3.png" alt="" />
+		</div>
+		<p>Let's make something great work together. <a class="link" asp-controller="CustomerService" asp-action="Index">Get Free Quote</a></p>
 	</div>
 </section>
