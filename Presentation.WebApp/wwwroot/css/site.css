@@ -24,7 +24,7 @@
     --ff-dmsans: "DMSans", sans-serif;
     --ff-heading: var(--ff-poppins);
     --ff-body: var(--ff-dmsans);
-    --ff-badge: var(--ff-dmsans);
+    --ff-badge: var(--ff-dmsans);    
 
     --fw-regular: 400;
     --fw-medium: 500;
