@@ -24,6 +24,7 @@
     --ff-dmsans: "DMSans", sans-serif;
     --ff-heading: var(--ff-poppins);
     --ff-body: var(--ff-dmsans);
+    --ff-badge: var(--ff-dmsans);
 
     --fw-regular: 400;
     --fw-medium: 500;
@@ -34,7 +35,7 @@
     --fs-section-sub-heading: 1.75rem;
     --fs-big-heading: 3.375rem;
     --fs-body: 1rem;
-    --fs-body-small: 0.875rem;
+    --fs-badge: 0.875rem;
 
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
@@ -42,7 +43,7 @@
 
     --primary-btn-icon-width: 25px;
     --mobile-menu-icon-width: 45px;
-    --chevron-width: var(--icon-width);
+    --chevron-width: var(--icon-width);   
 }
 
 /* ----- RESETS ----- */
@@ -119,7 +120,7 @@ address {
     border: none;
     background-color: var(--divider-color);
     margin-block: 0;
-    height: 2px;
+    height: 1px;
     width: 100%;
 }
 
@@ -155,4 +156,53 @@ address {
 
 .chevron {
     width: var(--primary-btn-icon-width);
+}
+
+.bullet-list {
+    --bullet-list-block-padding: 1rem;
+    --bullet-list-row-gap: 1.125rem;
+    --bullet-list-column-gap: 2.188rem;
+    --bullet-list-icon-size: 1.5rem;
+    --bullet-list-icon-color: var(--clr-accent-400);
+
+    list-style: none;
+    padding: 0;
+    padding-block: var(--bullet-list-block-padding);
+    width: 100%;
+    display: grid;
+    row-gap: var(--bullet-list-row-gap);
+    column-gap: clamp(1rem, var(--bullet-list-column-gap), 2.5rem); ;
+
+    & li {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-content: center;
+    }
+
+    .icon {
+        width: var(--bullet-list-icon-size);
+        fill: var(--bullet-list-icon-color);
+    }
+}
+
+.badge {
+    font-size: var(--fs-badge);
+    font-weight: var(--fw-semi-bold);
+    font-family: var(--ff-badge);
+    background-color: var(--clr-primary-400);
+    padding: 0.5rem 1rem;
+    border-radius: 100vW;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 5px;
+        background-color: var(--clr-accent-400);
+        border-radius: 50%;
+    }
 }

@@ -10,8 +10,9 @@ header {
     --dropdown-menu-bg-clr: var(--clr-accent-400);
     --dropdown-menu-text-clr: var(--clr-primary-400);
     --dropdown-menu-hover-text-clr: hsl(from var(--clr-primary-400) h s l / 0.8);
+    --header-block-padding: 1.5rem;
 
-    padding: 1.5rem 2rem;
+    padding: var(--header-block-padding) 2rem 0 2rem;
     border-radius: var(--border-radius-standard);
     background-color: var(--header-bg-color);
     background-image: url(../images/dark-section-img.png);
@@ -43,11 +44,9 @@ header {
         text-decoration-thickness: 2px;
     }
 
-    &.dropdown {
-        .dropdown-trigger {
-            display: inline-flex;
-            gap: 0.4rem;
-        }
+    &.dropdown-trigger {
+        display: inline-flex;
+        gap: 0.4rem;
     }
 }
 
@@ -57,6 +56,7 @@ header {
     gap: 0.5rem;
     grid-template-columns: auto 2fr auto;
     grid-template-areas: "logo menu acc-menu";
+    padding-bottom: var(--header-block-padding);
 
     @media (width < 992px) {
         display: none;
@@ -150,7 +150,9 @@ header {
 /* MOBILE MENU */
 .mobile-header-section {
     --mobile-menu-border-color: hsl(from var(--clr-neutral-500) h s l / 0.3);
+
     display: none;
+    padding-bottom: var(--header-block-padding);
 
     @media (width < 992px) {
         display: grid;
