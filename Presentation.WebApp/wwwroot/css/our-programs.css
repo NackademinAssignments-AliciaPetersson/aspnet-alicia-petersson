@@ -1,0 +1,29 @@
+﻿/* 
+  -------- OUR PROGRAMS ---------
+*/
+.our-programs-section {
+    --card-block-padding: 4.75rem;
+
+    text-align: center;
+    color: var(--clr-primary-400);
+
+    & .container {
+        display: grid;
+        justify-items: center;
+        gap: 3rem;
+    }
+}
+
+@media (width < 992px) {
+    .our-programs-section {
+        --card-block-padding: 2rem;
+
+        & .container,
+        & .image-wrapper {
+            gap: 1.2rem;
+        }
+    }
+}
+/* 
+  -------- END OUR PROGRAMS ---------
+*/

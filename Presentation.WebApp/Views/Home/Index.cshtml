@@ -1,8 +1,26 @@
-﻿@{
+﻿@section Hero {
+    <partial name="Partials/Sections/_Hero" />
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/hero.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/logo-banner.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/about-us.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/our-programs.css" asp-append-version="true" />
+}
+@{
     ViewData["Title"] = "Home";
 }
-<h1>INDEX - Home</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue tristique ante, eu convallis libero suscipit nec. 
-    Nunc dapibus nulla sit amet urna egestas, id luctus sem commodo. Nulla augue mauris, porttitor quis tincidunt eu, 
-    tincidunt condimentum velit. Aliquam tempor aliquet elementum. Sed tincidunt elit id sodales aliquet. Vestibulum mollis 
-    facilisis eros, eu porttitor ex bibendum vitae.</p>
+<div class="logo-banner-container">
+	<div class="logos-wrapper">
+		<img src="~/images/logoBanner/logo_1.png" alt="Brand A" />
+		<img src="~/images/logoBanner/logo_2.png" alt="Brand B" />
+		<img src="~/images/logoBanner/logo_3.png" alt="Brand C" />
+		<img src="~/images/logoBanner/logo_4.png" alt="Brand D" />
+		<img src="~/images/logoBanner/logo_5.png" alt="Brand E" />
+	</div>
+	<span class="banner-slogan">Modern Equipment</span>
+</div>
+
+<partial name="Partials/Sections/_AboutUsSection" />
+<partial name="Partials/Sections/_OurProgramsSection" />
+<partial name="Partials/Sections/_OurStoreSection" />
