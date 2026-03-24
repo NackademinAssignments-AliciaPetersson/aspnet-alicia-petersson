@@ -17,14 +17,14 @@
     --body-bg-color: var(--clr-neutral-200);
     --heading-text-color: var(--clr-primary-400);
     --body-text-color: var(--clr-neutral-500);
-    --header-text-color: var(--clr-neutral-100);    
+    --header-text-color: var(--clr-neutral-100);
     --divider-color: hsl(from var(--clr-accent-400) h s l / 0.2);
 
     --ff-poppins: "Poppins", sans-serif;
     --ff-dmsans: "DMSans", sans-serif;
     --ff-heading: var(--ff-poppins);
     --ff-body: var(--ff-dmsans);
-    --ff-badge: var(--ff-dmsans);    
+    --ff-badge: var(--ff-dmsans);
 
     --fw-regular: 400;
     --fw-medium: 500;
@@ -37,15 +37,13 @@
     --fs-body: 1rem;
     --fs-badge: 0.875rem;
 
-    --section-block-margin: 6rem;
-
     --border-radius-standard: 20px;
     --border-radius-btn: 50px;
     --border-radius-inputs: 10px;
 
     --primary-btn-icon-width: 25px;
     --mobile-menu-icon-width: 45px;
-    --chevron-width: var(--icon-width);   
+    --chevron-width: var(--icon-width);
 }
 
 /* ----- RESETS ----- */
@@ -55,12 +53,12 @@
     box-sizing: border-box;
 }
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6, 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 p {
     margin: 0;
     padding: 0;
@@ -73,7 +71,7 @@ textarea {
     font-family: inherit;
 }
 
-img, 
+img,
 picture,
 svg {
     display: block;
@@ -184,7 +182,7 @@ address {
     width: 100%;
     display: grid;
     row-gap: var(--bullet-list-row-gap);
-    column-gap: clamp(1rem, var(--bullet-list-column-gap), 2.5rem); ;
+    column-gap: clamp(1rem, var(--bullet-list-column-gap), 2.5rem);
 
     & li {
         display: inline-flex;
@@ -221,23 +219,55 @@ address {
     }
 }
 
+.section {
+    --section-block-margin: 7rem;
+
+    display: grid;
+    gap: 3rem;
+    margin-block: var(--section-block-margin);
+    color: var(--clr-primary-400);
+
+    @media (width < 992px) {
+        --section-block-margin: 2rem;
+        gap: 1.2rem;
+    }
+}
+
+.center-content {
+    justify-items: center;
+    text-align: center;
+}
+
 .section-heading {
     font-size: var(--fs-section-heading);
     color: var(--clr-primary-400);
     font-weight: var(--fw-medium);
+    max-width: 25ch;
+    line-height: 65px;
 
-    @media (width <= 425px) {
+    @media (width <=425px) {
         --fs-section-heading: 2.5rem;
     }
 }
 
 .card {
+    --card-block-padding: 1rem;
+    
     background-color: var(--clr-neutral-100);
     border-radius: var(--border-radius-standard);
-    padding: 1rem;
+    padding: var(--card-block-padding) 1rem;
 }
 
 .link {
     color: inherit;
     font-weight: var(--fw-semi-bold);
+}
+
+.image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.2rem;
 }

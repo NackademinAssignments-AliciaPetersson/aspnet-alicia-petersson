@@ -1,37 +1,22 @@
-﻿.our-programs-section {
-    --container-block-padding: 4.75rem;
+﻿/* 
+  -------- OUR PROGRAMS ---------
+*/
+.our-programs-section {
+    --card-block-padding: 4.75rem;
+
     text-align: center;
     color: var(--clr-primary-400);
 
     & .container {
-        padding-block: var(--container-block-padding);
         display: grid;
         justify-items: center;
         gap: 3rem;
     }
-
-    & .image-wrapper {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 2.625rem;
-    }
-
-    & .section-heading {
-        max-width: 25ch;
-        line-height: 65px;
-    }
-
-   /* & p {
-        font-weight: var(--fw-semi-bold);
-        padding-inline: 1rem;
-    }*/
 }
 
 @media (width < 992px) {
     .our-programs-section {
-        --container-block-padding: 1rem;
+        --card-block-padding: 2rem;
 
         & .container,
         & .image-wrapper {
@@ -39,3 +24,6 @@
         }
     }
 }
+/* 
+  -------- END OUR PROGRAMS ---------
+*/
