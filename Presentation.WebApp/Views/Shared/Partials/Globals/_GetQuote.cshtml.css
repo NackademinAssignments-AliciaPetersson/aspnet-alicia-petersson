@@ -1,0 +1,5 @@
+﻿.get-quote {
+    font-weight: var(--fw-semi-bold);
+    padding-inline: 1rem;
+    color: inherit;
+}
