@@ -13,9 +13,14 @@ public class AuthController(IAuthService authService, IMemberService memberServi
 {
     private const string EmailSessionKey = "EmailSessionKey";
 
+    #region Local Sign Up
     [HttpGet("sign-up")]
     public IActionResult SignUp()
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         return View();
     }
 
@@ -23,6 +28,10 @@ public class AuthController(IAuthService authService, IMemberService memberServi
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignUp(SignUpForm form)
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         if (!ModelState.IsValid)
         {
             return View(form);
@@ -44,6 +53,10 @@ public class AuthController(IAuthService authService, IMemberService memberServi
     [HttpGet("set-password")]
     public IActionResult SetPassword()
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         var sessionEmail = HttpContext.Session.GetString(EmailSessionKey);
         if (string.IsNullOrWhiteSpace(sessionEmail))
             return RedirectToAction(nameof(SignUp));
@@ -57,6 +70,10 @@ public class AuthController(IAuthService authService, IMemberService memberServi
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SetPassword(SetPasswordForm form, CancellationToken ct = default)
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         var sessionEmail = HttpContext.Session.GetString(EmailSessionKey);
         if (string.IsNullOrWhiteSpace(sessionEmail))
             return RedirectToAction(nameof(SignUp));
@@ -84,10 +101,16 @@ public class AuthController(IAuthService authService, IMemberService memberServi
 
         return RedirectToAction(nameof(SignIn));
     }
+    #endregion
 
+    #region Local Sign In
     [HttpGet("sign-in")]
     public IActionResult SignIn(string? returnUrl = null)
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         ViewBag.ReturnUrl = returnUrl;
         return View();
     }
@@ -95,6 +118,10 @@ public class AuthController(IAuthService authService, IMemberService memberServi
     [HttpPost("sign-in")]
     public async Task<IActionResult> SignIn(SignInForm form, string? returnUrl = null)
     {
+        var redirect = RedirectWhenSignedIn;
+        if (redirect is not null)
+            return redirect;
+
         ViewBag.ReturnUrl = returnUrl;
 
         if (!ModelState.IsValid)
@@ -113,6 +140,29 @@ public class AuthController(IAuthService authService, IMemberService memberServi
         if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return LocalRedirect(returnUrl);
 
-        return Redirect("/");
+        return RedirectWhenSignedIn ?? Redirect("/");
     }
+    #endregion
+
+    #region private properties
+    private IActionResult? RedirectWhenSignedIn
+    {
+        get
+        {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                if (User.IsInRole("Admin"))
+                    return Redirect("/admin");
+
+                if (User.IsInRole("Member"))
+                    return Redirect("/me");
+
+                return Redirect("/");
+            }
+
+            return null;
+        }
+    }
+
+    #endregion
 }
