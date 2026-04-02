@@ -26,11 +26,11 @@ internal sealed class MemberConfiguration : IEntityTypeConfiguration<MemberEntit
 
         builder.Property(e => e.CreatedAtUtc)
             .IsRequired()
-            .HasColumnType("datetime(0)");
+            .HasColumnType("datetime2(0)");
 
         builder.Property(e => e.UpdatedAtUtc)
             .IsRequired()
-            .HasColumnType("datetime(0)");
+            .HasColumnType("datetime2(0)");
 
         builder.Property(e => e.RowVersion)
             .IsRequired(false)
@@ -50,7 +50,7 @@ internal sealed class MemberConfiguration : IEntityTypeConfiguration<MemberEntit
         });
 
         //Relations
-        builder.HasOne<AuthenticationUser>()
+        builder.HasOne(member => member.User)
             .WithOne()
             .HasForeignKey<MemberEntity>(member => member.UserId)
             .HasPrincipalKey<AuthenticationUser>(user => user.Id)
