@@ -4,6 +4,7 @@ using Infrastructure.Persistence.EFC;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(x => 
 {
@@ -23,6 +24,7 @@ app.UseRouting();
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

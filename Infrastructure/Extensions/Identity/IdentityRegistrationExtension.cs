@@ -1,4 +1,6 @@
-﻿using Infrastructure.Identity;
+﻿using Application.Abstractions.Identity;
+using Infrastructure.Identity;
+using Infrastructure.Identity.Services;
 using Infrastructure.Persistence.EFC.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +21,7 @@ public static class IdentityRegistrationExtension
 
         services.ConfigureApplicationCookie(options =>
         {
-            options.LoginPath = "/auth/signin";
+            options.LoginPath = "/auth/sign-in";
             options.LogoutPath = "/";
             options.AccessDeniedPath = "/error/401";
 
@@ -27,6 +29,8 @@ public static class IdentityRegistrationExtension
             options.ExpireTimeSpan = TimeSpan.FromHours(8);
             options.SlidingExpiration = true;
         });
+
+        services.AddScoped<IAuthService, IdentityAuthService>();
 
         return services;
     }

@@ -13,22 +13,18 @@ var pageTitle = !string.IsNullOrWhiteSpace(ViewData["Title"]?.ToString())
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
     <link rel="stylesheet" href="~/Presentation.WebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="layout app-layout">
+    <div class="layout auth-layout">
         <header>
             <partial name="Partials/Globals/_Header" />
-            @if (IsSectionDefined("Hero"))
-            {
-                @RenderSection("Hero", required: false)
-            }
         </header>
         <main>
             @RenderBody()
         </main>
-        <partial name="Partials/Globals/_Footer" />
     </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

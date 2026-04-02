@@ -1,4 +1,6 @@
-﻿using Infrastructure.Identity;
+﻿using Domain.Aggregates.Member;
+using Infrastructure.Identity;
+using Infrastructure.Persistence.EFC.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,4 +16,5 @@ public sealed class CoreFitnessContext(DbContextOptions<CoreFitnessContext> opti
     }
 
     // Add Entity Db Sets below:
+    public DbSet<MemberEntity> Members => Set<MemberEntity>();
 }
