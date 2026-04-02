@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Infrastructure.Persistence.EFC;
+namespace Infrastructure.Persistence.EFC.Data;
 
 public static class PersistenceInitializer
 {
-    public static async Task InitializeAsync(IServiceProvider serviceProvider, IHostEnvironment environment, CancellationToken ct = default)
+    public static async Task InitializeDatabaseAsync(IServiceProvider serviceProvider, IHostEnvironment environment, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(environment);
