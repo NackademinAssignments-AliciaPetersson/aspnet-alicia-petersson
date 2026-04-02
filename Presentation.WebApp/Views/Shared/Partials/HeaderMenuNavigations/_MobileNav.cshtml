@@ -1,10 +1,36 @@
 ﻿<div class="mobile-menu">
-	<a class="account-button icon-btn"
-	   aria-label="Sign in to your account"
-	   asp-controller="Auth"
-	   asp-action="SignIn">
-		<partial name="Partials/Icons/_IconAccount" />
-	</a>
+	@if (User.Identity?.IsAuthenticated == true)
+	{
+		@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+		{
+			<a class="account-button icon-btn"
+				   aria-label="Sign in to your account"
+				   asp-area="Admin"
+				   asp-controller="Home"
+				   asp-action="Index">
+				<partial name="Partials/Icons/_IconAccount" />
+			</a>
+		}
+		else
+		{
+			<a class="account-button icon-btn"
+				   aria-label="Sign in to your account"
+				   asp-area="Account"
+				   asp-controller="Home"
+				   asp-action="Index">
+				<partial name="Partials/Icons/_IconAccount" />
+			</a>
+		}
+	}
+	else
+	{
+		<a class="account-button icon-btn"
+			   aria-label="Sign in to your account"
+			   asp-controller="Auth"
+			   asp-action="SignIn">
+			<partial name="Partials/Icons/_IconAccount" />
+		</a>
+	}	
 
 	<button type="button"
 			class="menu-button mobile-nav-toggle icon-btn"

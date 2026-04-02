@@ -27,20 +27,51 @@
 
 <nav class="menu">
 	<ul class="account-menu">
-		<li>
-			<a class="signup menu-item"
-			   asp-controller="Auth"
-			   asp-action="SignUp">
-				Become Member
-			</a>
-		</li>
-		<li>
-			<a class="primary-btn"
-			   asp-controller="Auth"
-			   asp-action="SignIn">
-				Sign In
-				<partial name="Partials/Icons/_ChevronRight" />
-			</a>
-		</li>
+		@if (User.Identity?.IsAuthenticated == true)
+		{
+			@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+			{
+				<li>
+					<a class="primary-btn"
+						   asp-area="Admin"
+						   asp-controller="Home"
+						   asp-action="Index">
+						Admin Center
+						<partial name="Partials/Icons/_ChevronRight" />
+					</a>
+				</li>
+			}
+			else
+			{
+				<li>
+					<a class="primary-btn"
+						   asp-area="Account"
+						   asp-controller="Home"
+						   asp-action="Index">
+						My Account
+						<partial name="Partials/Icons/_ChevronRight" />
+					</a>
+				</li>
+			}
+		}
+		else
+		{
+			<li>
+				<a class="signup menu-item"
+					   asp-controller="Auth"
+					   asp-action="SignUp">
+					Become Member
+				</a>
+			</li>
+			<li>
+				<a class="primary-btn"
+					   asp-controller="Auth"
+					   asp-action="SignIn">
+					Sign In
+					<partial name="Partials/Icons/_ChevronRight" />
+				</a>
+			</li>
+		}
+		
 	</ul>
 </nav>
