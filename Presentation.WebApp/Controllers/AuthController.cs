@@ -3,7 +3,8 @@ using Application.Abstractions.Services;
 using Application.Modules.Members.Inputs;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.WebApp.Models.Register;
+using Presentation.WebApp.Models.SignIn;
+using Presentation.WebApp.Models.SignUp;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -85,8 +86,33 @@ public class AuthController(IAuthService authService, IMemberService memberServi
     }
 
     [HttpGet("sign-in")]
-    public IActionResult SignIn()
+    public IActionResult SignIn(string? returnUrl = null)
     {
+        ViewBag.ReturnUrl = returnUrl;
         return View();
+    }
+
+    [HttpPost("sign-in")]
+    public async Task<IActionResult> SignIn(SignInForm form, string? returnUrl = null)
+    {
+        ViewBag.ReturnUrl = returnUrl;
+
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(nameof(form.ErrorMessage), "Incorrect email address or password");
+            return View(form);
+        }
+
+        var signedIn = await authService.SignInLocalUserAsync(form.Email, form.Password, form.RememberMe);
+        if (!signedIn.Success)
+        {
+            ModelState.AddModelError(nameof(form.ErrorMessage), signedIn?.ErrorMessage ?? "Incorrect email address or password");
+            return View(form);
+        }
+
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return LocalRedirect(returnUrl);
+
+        return Redirect("/");
     }
 }

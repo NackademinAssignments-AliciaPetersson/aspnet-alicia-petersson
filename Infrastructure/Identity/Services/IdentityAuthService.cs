@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Identity.Services;
 
-public sealed class IdentityAuthService(UserManager<AuthenticationUser> userManager, RoleManager<IdentityRole> roleManager) : IAuthService
+public sealed class IdentityAuthService(UserManager<AuthenticationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AuthenticationUser> signInManager) : IAuthService
 {
     public async Task<bool> DoesUserExistAsync(string email) => await userManager.Users.AnyAsync(x => x.Email == email);
 
@@ -31,5 +31,24 @@ public sealed class IdentityAuthService(UserManager<AuthenticationUser> userMana
             await userManager.AddToRoleAsync(user, roleName);        
 
         return Result<string?>.Ok(user.Id);
+    }
+
+    public async Task<Result> SignInLocalUserAsync(string email, string password, bool rememberMe = false)
+    {
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            return Result.BadRequest("Incorrect email address or password");
+
+        var result = await signInManager.PasswordSignInAsync(email, password, rememberMe, false);
+
+        if (result.IsNotAllowed)
+            return Result.Error("This user is not allowed to login");
+
+        if (result.RequiresTwoFactor)
+            return Result.Error("This user requires two-factor authentication");
+
+        if (!result.Succeeded)
+            return Result.BadRequest("Incorrect email address or password");
+
+        return Result.Ok();
     }
 }

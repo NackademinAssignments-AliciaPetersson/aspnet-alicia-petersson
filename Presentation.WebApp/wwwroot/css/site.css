@@ -149,8 +149,7 @@ form {
     & .form-checkbox-group {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        align-items: center;        
         gap: 0.5rem;
 
         & input {
@@ -160,6 +159,14 @@ form {
 
         & label {
             font-weight: var(--fw-regular);
+        }
+
+        &.checkbox-center {
+            justify-content: center;
+        }
+
+        &.checkbox-left {
+            justify-content: left;
         }
     }
 

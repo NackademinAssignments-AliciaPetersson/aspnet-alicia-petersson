@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Presentation.WebApp.Models.Register;
+namespace Presentation.WebApp.Models.SignUp;
 
 public class SignUpForm
 {

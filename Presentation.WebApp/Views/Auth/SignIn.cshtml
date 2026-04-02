@@ -1,1 +1,52 @@
-﻿<h1>SIGN IN</h1>
+﻿@model SignInForm
+@{
+	ViewData["Title"] = "Welcome Back!";
+	Layout = "Layouts/_AuthLayout";
+}
+<section class="card auth-card section">
+	<div>
+		<h1 class="section-heading">@ViewData["Title"]?.ToString()</h1>
+		<p>
+			Log in to continue your fitness journey with full access to your customized program, training history, 
+			and progress tracking. Stay consistent, monitor your development, and keep moving forward with the 
+			structure and support built into your account.
+		</p>
+		<hr class="divider" />
+	</div>
+	<div class="image-wrapper">
+		<a class="branding-icon-link" href="#" aria-label="Log in with Google"> <img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/web_light_rd_na@2x.png" alt="Google Logo"> </a>
+		<a class="branding-icon-link" href="#" aria-label="Log in with Facebook"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/Facebook_Logo_Primary.png" alt="Facebook Logo"></a>
+		<a class="branding-icon-link" href="#" aria-label="Log in with Github"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/GitHub_Invertocat_Black.png" alt="Github Logo"></a>
+	</div>
+	<p class="divider-with-text"><span>or continue with</span></p>
+	<form id="signInForm" method="post" asp-action="SignIn" asp-controller="Auth" novalidate>
+		@Html.AntiForgeryToken()
+		<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+		<div class="form-group">
+			<label class="form-label" asp-for="Email"></label>
+			<input class="form-input" asp-for="Email" autocomplete="on" />
+		</div>
+
+		<div class="form-group">
+			<label class="form-label" asp-for="Password"></label>
+			<input class="form-input" asp-for="Password" autocomplete="off" />
+		</div>
+
+		<div class="form-group form-checkbox-group checkbox-left">
+			<input class="form-checkbox" asp-for="RememberMe" />
+			<label class="form-label" asp-for="RememberMe"></label>			
+		</div>
+
+		<div class="error-container">
+			<span class="text-danger">@TempData["ErrorMessage"]?.ToString()</span>
+			<span class="text-danger" asp-validation-for="ErrorMessage"></span>
+		</div>
+
+		<div asp-validation-summary="ModelOnly"></div>
+
+		<button class="primary-btn" type="submit">
+			Continue
+			<partial name="Partials/Icons/_ChevronRight" />
+		</button>
+	</form>
+</section>
