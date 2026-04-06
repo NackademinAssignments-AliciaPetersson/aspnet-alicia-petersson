@@ -1,0 +1,13 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/not-found.css" asp-append-version="true" />
+}
+<div class="not-found-wrapper">
+    <div>
+        <h1 class="heading">Denied!</h1>
+        <p>You are not permitted to view this page. You are either unauthenticated or don't have permission to view this page.</p>
+    </div>
+    <a class="primary-btn" asp-controller="Home" asp-action="Index">
+        Back to Home page
+        <partial name="Partials/Icons/_ChevronRight" />
+    </a>
+</div>

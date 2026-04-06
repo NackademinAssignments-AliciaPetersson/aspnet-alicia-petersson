@@ -1,1 +1,43 @@
-﻿<h1>SIGN UP</h1>
+﻿
+@model SignUpForm
+@{
+	ViewData["Title"] = "Become a Member";
+	Layout = "Layouts/_AuthLayout";
+}
+<section class="card auth-card section">
+	<div>
+		<h1 class="section-heading">@ViewData["Title"]?.ToString()</h1>
+		<p>
+			Sign up to continue your fitness journey with full access to your customized
+			program, training history, and progress tracking. Stay consistent, monitor
+			your development, and keep moving forward with the structure and support
+			built into your account.
+		</p>
+		<hr class="divider" />
+	</div>
+	<div class="image-wrapper">
+		<a class="branding-icon-link" href="#" aria-label="Log in with Google"> <img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/web_light_rd_na@2x.png" alt="Google Logo"> </a>
+		<a class="branding-icon-link" href="#" aria-label="Log in with Facebook"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/Facebook_Logo_Primary.png" alt="Facebook Logo"></a>
+		<a class="branding-icon-link" href="#" aria-label="Log in with Github"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/GitHub_Invertocat_Black.png" alt="Github Logo"></a>
+	</div>
+	<p class="divider-with-text"><span>or continue with</span></p>
+	<form id="signUpForm" method="post" asp-action="SignUp" asp-controller="Auth" novalidate>
+		@Html.AntiForgeryToken()
+		<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+		<div class="form-group">
+			<label class="form-label" asp-for="Email" ></label>
+			<input class="form-input" asp-for="Email" autocomplete="on" />
+			<span asp-validation-for="Email" class="text-danger"></span>
+		</div>
+		<div asp-validation-summary="ModelOnly"></div>
+
+		<button class="primary-btn" type="submit">
+			Continue
+			<partial name="Partials/Icons/_ChevronRight" />
+		</button>
+		<p class="text-center">We will send a verification code to your email address.</p>
+	</form>
+</section>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

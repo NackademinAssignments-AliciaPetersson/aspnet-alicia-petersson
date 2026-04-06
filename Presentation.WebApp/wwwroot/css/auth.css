@@ -1,0 +1,47 @@
+﻿.auth-card {
+    --card-inline-padding: 3.75rem;
+    --card-block-padding: 4rem;
+    --branding-icon-width: 60px;
+    max-width: 890px;
+    margin-inline: auto;
+
+    & .section-heading {
+        --fs-section-heading: 3rem;
+    }
+
+    & .divider,
+    & .divider-with-text {
+        --divider-color: var(--clr-neutral-500);
+    }
+
+    & .divider {
+        margin-top: 2.5rem;
+    }
+
+    & .primary-btn {
+        --btn-inline-margin: 5rem;
+        margin-inline: var(--btn-inline-margin);
+        width: calc(100% - var(--btn-inline-margin) * 2);
+        display: grid;
+        grid-template-columns: 1fr auto;
+    }
+
+
+    & .branding-icon-img {
+        max-width: var(--branding-icon-width);
+        max-height: var(--branding-icon-width);
+    }
+
+    & .branding-icon-link {
+        margin: calc(var(--branding-icon-width) / 4);
+    }
+
+    & .image-wrapper {
+        justify-content: center;
+        gap: 0;
+    }
+
+    & p:not(.text-danger) {
+        color: var(--clr-neutral-500);
+    }
+}

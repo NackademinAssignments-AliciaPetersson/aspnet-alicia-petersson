@@ -17,7 +17,7 @@ var pageTitle = !string.IsNullOrWhiteSpace(ViewData["Title"]?.ToString())
     <link rel="stylesheet" href="~/Presentation.WebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="app-layout">
+    <div class="layout app-layout">
         <header>
             <partial name="Partials/Globals/_Header" />
             @if (IsSectionDefined("Hero"))
