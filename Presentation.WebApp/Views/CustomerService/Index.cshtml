@@ -1,1 +1,9 @@
-﻿<h1>CUSTOMER SERVICE</h1>
+﻿@section Styles {
+	<link rel="stylesheet" href="~/css/contact-us.css" asp-append-version="true" />
+}
+@{
+	var pageTitle = "Customer Service";
+	ViewData["Title"] = pageTitle;
+}
+<h1 class="section-heading page-title">@pageTitle</h1>
+<partial name="Partials/Sections/_ContactUs" />

@@ -40,8 +40,4 @@
         justify-content: center;
         gap: 0;
     }
-
-    & p:not(.text-danger) {
-        color: var(--clr-neutral-500);
-    }
 }
