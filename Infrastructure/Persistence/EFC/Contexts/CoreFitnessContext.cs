@@ -17,4 +17,5 @@ public sealed class CoreFitnessContext(DbContextOptions<CoreFitnessContext> opti
 
     // Add Entity Db Sets below:
     public DbSet<MemberEntity> Members => Set<MemberEntity>();
+    public DbSet<ContactRequestEntity> ContactRequests => Set<ContactRequestEntity>();
 }

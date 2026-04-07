@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.Member;
+﻿using Application.Abstractions.Persistence;
+using Domain.Aggregates.Member;
 using Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ public static class RepositoriesRegistrationExtension
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IContactRequestRepository, ContactRequestRepository>();
 
         return services;
     }

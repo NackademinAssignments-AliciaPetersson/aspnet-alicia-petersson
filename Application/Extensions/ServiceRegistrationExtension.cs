@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Services;
+using Application.Modules.ContactRequests;
 using Application.Modules.Members;
 using Domain.Aggregates.Member;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class ServiceRegistrationExtension
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddScoped<IMemberService, MemberService>();
+        services.AddScoped<IContactRequestService, ContactRequestService>();
 
         return services;
     }
