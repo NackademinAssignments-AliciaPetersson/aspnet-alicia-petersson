@@ -365,7 +365,7 @@ form {
 .floating-transparent-card {
     --body-text-color: var(--clr-neutral-100);
     --card-block-padding: 2rem;
-    --card-inline-padding: 1.813rem;
+    --card-inline-padding: 1.2rem;
     --card-margin-inline: 2.5rem;
 
     position: absolute;
