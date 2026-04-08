@@ -316,7 +316,7 @@ form {
     margin-block: var(--section-block-margin);
     color: var(--clr-primary-400);
 
-    & p:not(.text-danger) {
+    & p {
         color: var(--clr-neutral-500);
     }
 
@@ -354,6 +354,7 @@ form {
 }
 
 .card,
+.card-dark,
 .floating-transparent-card {
     --card-block-padding: 1rem;
     --card-inline-padding: 1rem;
@@ -362,6 +363,17 @@ form {
     background-color: var(--clr-neutral-100);
     border-radius: var(--card-border-radius);
     padding: var(--card-block-padding) var(--card-inline-padding);
+}
+
+.card-dark {
+    background-color: var(--clr-primary-600);
+
+    & p,
+    & h1,
+    & h2, 
+    & h3 {
+        color: var(--clr-neutral-100);
+    }
 }
 
 .floating-transparent-card {
@@ -432,7 +444,7 @@ form {
     justify-content: center;
     align-items: center;
 
-    & > .icon {
+    &>.icon {
         width: var(--icon-width);
         height: var(--icon-height);
     }
@@ -461,6 +473,14 @@ form {
     text-align: center;
 }
 
-.w-100 {
-    max-width: 100%;
+.small-text {
+    font-size: 0.75rem;
+}
+
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }

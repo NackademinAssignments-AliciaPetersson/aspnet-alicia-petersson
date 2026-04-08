@@ -1,0 +1,67 @@
+﻿.memberships-section {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(min(404px, 100%), 1fr) );
+    gap: 1.75rem;
+
+    & .round-icon {
+        --icon-width: 30px;
+        --icon-height: 30px;
+        margin-block: 2.5rem;
+    }
+
+    & .divider {
+        background-color: hsl(from var(--clr-neutral-600) h s l / 0.2);
+        margin-top: 1.75rem;
+        margin-bottom: 1.188rem;
+    }
+
+    & .bullet-list {
+        color: var(--body-text-color);
+    }
+
+    & .price {
+        font-size: 1.5rem;
+        font-weight: var(--fw-bold);
+    }
+
+    & .card-content {
+        padding-inline: 1.75rem;
+    }
+
+    & .card-bg-image {
+        background-image: url("/images/our-pricing-cta-image_1.png");
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        justify-content: start;
+        align-items: center;
+        padding: 2.5rem;
+        padding-bottom: 15rem;
+    }
+
+    & .card-dark {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-block: 1.875rem;
+
+        & .divider {
+            background-color: var(--clr-primary-400);
+            margin: 0;
+        }
+    }
+
+    & .card-title {
+        font-size: 1.125rem;
+    }
+
+    @media (width < 992px) {
+        & .card-bg-image {
+            padding-bottom: 2.5rem;
+            background-image: none;
+        }
+    }
+
+    @media (width < 1300px) {
+        gap: 0.657rem;
+    }
+}
