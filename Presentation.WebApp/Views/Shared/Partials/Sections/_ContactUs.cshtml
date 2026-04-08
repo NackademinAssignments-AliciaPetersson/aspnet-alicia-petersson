@@ -1,0 +1,97 @@
+﻿@using Presentation.WebApp.Models.CustomerService
+@model ContactForm
+@{
+	var isContactSubmitSuccess = TempData["IsContactSubmitSuccess"] as bool? ?? false;
+
+	var formHeading = 	isContactSubmitSuccess == false ? "Contact Us Today!" : "Thank you for your message!";
+	var paragraphText = isContactSubmitSuccess == false
+	? "Ready to begin your fitness journey? Contact CoreFitness today and let our expert trainers guide you with the right program and support." 
+	: TempData["SuccessMessage"];
+}
+<section class="card section container contact-form-section">
+	<div class="left-column">
+		<img class="form-image"
+			 src="~/images/contact-us-image_1.png"
+			 alt="Woman holding a barbell" />
+		<div class="floating-transparent-card">
+			<div class="contact-icon-wrapper">
+				<span class="round-icon">
+					<partial name="Partials/Icons/_IconPhone" />
+				</span>
+				<div>
+					<h3 class="contact-title">PhoneNumber</h3>
+					<a href="tel:+46841052100">+(46) 8 410 521 00</a>
+				</div>
+			</div>
+			<div class="contact-icon-wrapper">
+				<span class="round-icon">
+					<partial name="Partials/Icons/_IconEnvelope" />
+				</span>
+				<div>
+					<h3 class="contact-title">Email Address</h3>
+					<a href="mailto:info@corefitness.se">info@corefitness.se</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="right-column">
+		<h2 class="section-sub-heading">@formHeading</h2>
+		<p>@paragraphText</p>
+		@if (isContactSubmitSuccess == false)
+		{
+			<form class="contact-form"
+				  id="contactForm"
+				  method="post"
+				  asp-action="Index"
+				  asp-controller="CustomerService"
+				  novalidate>
+				@Html.AntiForgeryToken()
+
+				<div class="form-group first-name">
+					<label class="form-label" asp-for="FirstName"></label>
+					<input class="form-input" asp-for="FirstName" />
+					<span asp-validation-for="FirstName" class="text-danger"></span>
+				</div>
+
+				<div class="form-group last-name">
+					<label class="form-label" asp-for="LastName"></label>
+					<input class="form-input"
+						   asp-for="LastName" />
+					<span asp-validation-for="LastName" class="text-danger"></span>
+				</div>
+
+				<div class="form-group email">
+					<label class="form-label" asp-for="Email"></label>
+					<input class="form-input"
+						   asp-for="Email" />
+					<span asp-validation-for="Email" class="text-danger"></span>
+				</div>
+
+				<div class="form-group phone">
+					<label class="form-label" asp-for="PhoneNumber"></label>
+					<input class="form-input"
+						   asp-for="PhoneNumber" />
+					<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+				</div>
+
+				<div class="form-group message">
+					<label class="form-label" asp-for="Message"></label>
+					<textarea class="form-input"
+							  rows="4"
+							  asp-for="Message"></textarea>
+					<span asp-validation-for="Message" class="text-danger"></span>
+				</div>
+
+				<button class="primary-btn submit" type="submit">
+					Submit Message
+					<partial name="Partials/Icons/_ChevronRight" />
+				</button>
+
+				<div class="error-container">
+					<span class="text-danger">@TempData["ErrorMessage"]?.ToString()</span>
+					<span class="text-danger" asp-validation-for="ErrorMessage"></span>
+				</div>
+			</form>
+		}		
+	</div>
+</section>

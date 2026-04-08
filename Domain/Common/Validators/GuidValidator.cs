@@ -2,7 +2,7 @@
 
 namespace Domain.Common.Validators;
 
-public static class UserIdValidator
+public static class GuidValidator
 {
     public static string EnsureValidGuid(string? id)
     {

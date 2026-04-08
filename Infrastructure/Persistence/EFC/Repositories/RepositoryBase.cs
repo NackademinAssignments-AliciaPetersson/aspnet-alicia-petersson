@@ -61,7 +61,7 @@ public abstract class RepositoryBase<TDomainModell, TId, TEntity, TContext>(TCon
     {
         try
         {
-            var entity = await Set.SingleOrDefaultAsync(e => e.Id!.Equals(id), ct);
+            var entity = await Set.AsNoTracking().SingleOrDefaultAsync(e => e.Id!.Equals(id), ct);
             return entity is null ? default : ToDomainModel(entity);
         }
         catch (OperationCanceledException)

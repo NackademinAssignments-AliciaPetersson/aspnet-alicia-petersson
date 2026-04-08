@@ -31,7 +31,7 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
                 throw new ValidationDomainException(registerResult.ErrorMessage ?? "Unable to sign up member");
             }
 
-            var userId = UserIdValidator.EnsureValidGuid(registerResult.Value);
+            var userId = GuidValidator.EnsureValidGuid(registerResult.Value);
 
             var member = Member.Create(userId);
 
