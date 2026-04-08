@@ -1,1 +1,10 @@
-﻿<h1>MEMBERSHIPS</h1>
+﻿@section Styles {
+	<link rel="stylesheet" href="~/css/faq.css" asp-append-version="true" />
+}
+@{
+	var pageTitle = "Our Membership offers";
+	ViewData["Title"] = pageTitle;
+}
+<h1 class="section-heading page-title">@pageTitle</h1>
+
+<partial name="Partials/Sections/_FAQ" />
