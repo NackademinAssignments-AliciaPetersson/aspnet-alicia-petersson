@@ -1,7 +1,6 @@
 ﻿using Application.Abstractions.Identity;
 using Application.Abstractions.Services;
 using Application.Modules.Members.Inputs;
-using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models.SignIn;
 using Presentation.WebApp.Models.SignUp;
@@ -155,7 +154,7 @@ public class AuthController(IAuthService authService, IMemberService memberServi
                     return Redirect("/admin");
 
                 if (User.IsInRole("Member"))
-                    return Redirect("/me");
+                    return Redirect("/account");
 
                 return Redirect("/");
             }
