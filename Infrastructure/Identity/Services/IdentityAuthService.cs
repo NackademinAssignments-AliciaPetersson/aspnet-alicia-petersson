@@ -51,4 +51,6 @@ public sealed class IdentityAuthService(UserManager<AuthenticationUser> userMana
 
         return Result.Ok();
     }
+
+    public Task SignOutUserAsync() => signInManager.SignOutAsync();
 }
