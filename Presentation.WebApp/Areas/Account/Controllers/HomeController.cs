@@ -2,6 +2,7 @@
 using Application.Abstractions.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using Presentation.WebApp.Areas.Account.Models;
 using System.Security.Claims;
 
@@ -19,12 +20,44 @@ public class HomeController(IAuthService authService, IMemberService memberServi
     }
 
     [HttpGet("about-me")]
-    public IActionResult AboutMe(AboutMeViewModel viewModel)
+    public async Task<IActionResult> AboutMe()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            await authService.SignOutUserAsync();
+            return Redirect("/");
+        }
+
+        var accountResult = await memberService.GetMemberDetailsAsync(userId);
+        if (!accountResult.Success)
+        {
+            ViewData["ErrorMessage"] = accountResult.ErrorMessage ?? "Could not load profile details. Try again later";
+            return View();
+        }
+
+        var viewModel = new AboutMeViewModel {
+            AboutMeForm = new AboutMeForm
+            {
+                FirstName = accountResult.Value?.FirstName ?? "",
+                LastName = accountResult.Value?.LastName ?? "",
+                Email = accountResult.Value?.Email ?? "",
+                PhoneNumber = accountResult.Value?.PhoneNumber ?? ""
+            },
+            ProfileImageUrl = accountResult.Value?.ImageUrl ?? "~/images/default_profile_image.png"
+        };        
+        
+
+        return View(viewModel);
+    }
+
+    [HttpPost("about-me")]
+    public async Task<IActionResult> AboutMe(AboutMeViewModel viewModel)
     {
         return View(viewModel);
     }
 
-    [HttpGet("sign-out")]
+        [HttpGet("sign-out")]
     public new async Task<IActionResult> SignOut()
     {
         await authService.SignOutUserAsync();
@@ -43,7 +76,7 @@ public class HomeController(IAuthService authService, IMemberService memberServi
 
         if (!result.Success)
         {
-            var viewModel = new AboutMeViewModel() { Message = result.ErrorMessage ?? "Could not remove account. Try again later" };
+            ViewData["ErrorMessage"] = result.ErrorMessage ?? "Could not remove account. Try again later";
             return RedirectToAction(nameof(AboutMe));
         }
 

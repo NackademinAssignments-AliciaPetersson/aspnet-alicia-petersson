@@ -8,5 +8,4 @@ public interface IAuthService
     Task<Result<string?>> SignUpLocalUserAsync(string email, string password, string? roleName = null);
     Task<Result> SignInLocalUserAsync(string email, string password, bool rememberMe = false);
     Task SignOutUserAsync();
-    Task<bool> DeleteAccountAsync(string userId);
 }

@@ -54,17 +54,4 @@ public sealed class IdentityAuthService(UserManager<AuthenticationUser> userMana
     }
 
     public Task SignOutUserAsync() => signInManager.SignOutAsync();
-
-    public async Task<bool> DeleteAccountAsync(string userId)
-    {
-        if (string.IsNullOrWhiteSpace(userId))
-            throw new NullDomainException(nameof(userId));
-
-        var user = await userManager.FindByIdAsync(userId);
-        if (user is null)
-            return false;
-
-        var deleteResult = await userManager.DeleteAsync(user);
-        return deleteResult.Succeeded;
-    }
 }

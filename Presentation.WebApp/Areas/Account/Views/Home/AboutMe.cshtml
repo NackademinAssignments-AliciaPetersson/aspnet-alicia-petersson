@@ -17,10 +17,10 @@
 		&& (string.IsNullOrEmpty(area) || string.Equals(currentArea, area, StringComparison.OrdinalIgnoreCase));
 	}
 }
-@if (!string.IsNullOrWhiteSpace(Model.Message))
+@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
 {
 	<div class="message-box">
-		<p class="text-danger">@Model.Message</p>
+		<p class="text-danger">@ViewData["ErrorMessage"]?.ToString()</p>
 	</div>
 }
 <h1 class="section-heading page-title">@pageTitle</h1>
@@ -105,8 +105,7 @@
 				<div class="form-group">
 					<label class="form-label" asp-for="AboutMeForm.LastName">Last Name</label>
 					<input class="form-input"
-						   asp-for="AboutMeForm.LastName"
-						   placeholder="Enter Last Name" />
+						   asp-for="AboutMeForm.LastName" />
 					<span asp-validation-for="AboutMeForm.LastName" class="text-danger"></span>
 				</div>
 
@@ -114,15 +113,14 @@
 					<label class="form-label" asp-for="AboutMeForm.Email">Email Address *</label>
 					<input class="form-input"
 						   asp-for="AboutMeForm.Email"
-						   placeholder="example@domain.com" />
+						   readonly />
 					<span asp-validation-for="AboutMeForm.Email" class="text-danger"></span>
 				</div>
 
 				<div class="form-group">
 					<label class="form-label" asp-for="AboutMeForm.PhoneNumber">Phone Number</label>
 					<input class="form-input"
-						   asp-for="AboutMeForm.PhoneNumber"
-						   placeholder="Enter Phone Number" />
+						   asp-for="AboutMeForm.PhoneNumber"/>
 					<span asp-validation-for="AboutMeForm.PhoneNumber" class="text-danger"></span>
 				</div>
 
@@ -132,8 +130,7 @@
 					<label class="form-label" asp-for="AboutMeForm.ProfileImage">Profile Image</label>
 					<input type="file"
 						   class="form-input file-input"
-						   asp-for="AboutMeForm.ProfileImage"
-						   placeholder="Upload Profile Image" />
+						   asp-for="AboutMeForm.ProfileImage" />
 					<span asp-validation-for="AboutMeForm.ProfileImage" class="text-danger"></span>
 				</div>
 
