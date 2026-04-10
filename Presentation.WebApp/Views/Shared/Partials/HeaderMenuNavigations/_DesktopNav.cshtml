@@ -44,6 +44,15 @@
 			@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
 			{
 				<li>
+					<a class="signup menu-item"
+						   asp-area="Account"
+						   asp-controller="Home"
+						   asp-action="SignOut">
+						Sign Out
+					</a>
+				</li>
+
+				<li>
 					<a class="primary-btn"
 						   asp-area="Admin"
 						   asp-controller="Home"
@@ -55,6 +64,14 @@
 			}
 			else
 			{
+				<li>
+					<a class="signup menu-item"
+						asp-area="Account"
+						asp-controller="Classes"
+						asp-action="Index">
+						Our Classes
+					</a>
+				</li>
 				<li>
 					<a class="primary-btn"
 						   asp-area="Account"

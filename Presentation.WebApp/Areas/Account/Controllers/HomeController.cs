@@ -81,7 +81,8 @@ public class HomeController(IAuthService authService, IMemberService memberServi
         return RedirectToAction(nameof(AboutMe));
     }
 
-        [HttpGet("sign-out")]
+    [HttpGet("sign-out")]
+    [AllowAnonymous]
     public new async Task<IActionResult> SignOut()
     {
         await authService.SignOutUserAsync();
