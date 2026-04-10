@@ -28,7 +28,9 @@ public class MemberRepository(CoreFitnessContext context, ILogger logger) : Repo
 
     protected override void ApplyUpdates(Member model, MemberEntity entity)
     {
-        throw new NotImplementedException();
+        entity.FirstName = model.FirstName;
+        entity.LastName = model.LastName;
+        entity.ProfileImageUrl = model.ProfileImageUrl;
     }
 
     protected override Member ToDomainModel(MemberEntity entity)

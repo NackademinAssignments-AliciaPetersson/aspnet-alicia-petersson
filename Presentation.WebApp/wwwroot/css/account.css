@@ -6,6 +6,7 @@
     & .profile-img {
         border-radius: var(--border-radius-standard);
         margin-bottom: 3.75rem;
+        max-width: 404px;
     }
 
     & .about-me-card {

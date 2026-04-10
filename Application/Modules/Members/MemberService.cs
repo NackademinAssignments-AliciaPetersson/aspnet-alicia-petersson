@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Identity;
 using Application.Abstractions.Persistence;
 using Application.Abstractions.Services;
+using Application.Common.Outputs;
 using Application.Common.Results;
 using Application.Modules.Members.Inputs;
 using Application.Modules.Members.Outputs;
@@ -74,7 +75,7 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
     public async Task<Result<MemberDetails?>> GetMemberDetailsAsync(string userId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            throw new NullDomainException(nameof(userId));
+            throw new NullDomainException($"{nameof(userId)} cannot be null");
 
         var member = await memberRepo.GetByUserIdAsync(userId, ct);
         if (member is null)
@@ -95,5 +96,31 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         );
 
         return Result<MemberDetails?>.Ok(details);
+    }
+
+    public async Task<Result> UpdateMemberDetailsAsync(UpdateMemberDetailsInput details, CancellationToken ct = default)
+    {
+        if (details is null)
+            throw new NullDomainException($"{nameof(details)} cannot be null");
+
+        var member = await memberRepo.GetByUserIdAsync(details.UserId, ct);
+        if (member is null)
+            return Result.NotFound($"Member with user Id '{details.UserId}' was not found");
+
+        member.UpdateDetailsInformation(details.FirstName, details.LastName, details.ImageUrl);
+
+        await uow.ExecuteInTransactionAsync(async token =>
+        {
+            var updatedMember = await memberRepo.UpdateAsync(member.Id, member, ct);
+            if (member is null)
+                throw new NotUpdatedDomainException("Member could not be updated");
+
+            var authUserInput = new UpdateAuthenticationUserDetailsInput(details.UserId, details.PhoneNumber);
+            var authUserResult = await accountService.UpdateAuthenticationUserDetailsAsync(authUserInput);
+            if (!authUserResult.Success)
+                throw new NotUpdatedDomainException("Authentication User could not be updated");
+        }, ct);
+
+        return Result.Ok();
     }
 }

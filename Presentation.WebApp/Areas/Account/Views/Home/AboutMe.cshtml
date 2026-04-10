@@ -27,7 +27,7 @@
 <div class="container section account-page">
 	<aside class="profile-aside">
 		<img class="profile-img"
-			 src="~/images/default_profile_image.png"
+			 src="@Model.ProfileImageUrl"
 			 alt="user profile image" />
 		<div class="profile-menu-wrapper">
 			<div class="menu-title-wrapper">
@@ -89,11 +89,14 @@
 			<hr class="divider" />
 
 			<form id="accountForm"
+				  enctype="multipart/form-data"
 				  method="post"
+				  asp-area="Account"
+				  asp-controller="Home"
 				  asp-action="AboutMe"
-				  asp-controller="Account"
 				  novalidate>
 				@Html.AntiForgeryToken()
+				<input type="hidden" asp-for="ProfileImageUrl" />
 				<div class="form-group">
 					<label class="form-label" asp-for="AboutMeForm.FirstName">First Name</label>
 					<input class="form-input"

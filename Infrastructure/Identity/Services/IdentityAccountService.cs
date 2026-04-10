@@ -34,4 +34,20 @@ public class IdentityAccountService(UserManager<AuthenticationUser> userManager)
             ? Result.Ok()
             : Result.Error(deleted.Errors.FirstOrDefault()?.Description ?? "Unable to delete account");
     }
+
+    public async Task<Result> UpdateAuthenticationUserDetailsAsync(UpdateAuthenticationUserDetailsInput details)
+    {
+        if (details is null)
+            throw new NullDomainException($"{nameof(details)} cannot be null");
+
+        var user = await userManager.FindByIdAsync(details.UserId);
+        if (user is null)
+            return Result.NotFound($"Authentication User with ID '{details.UserId}' was not found");
+
+        user.PhoneNumber = details.PhoneNumber;
+        var result = await userManager.UpdateAsync(user);
+        return result.Succeeded
+            ? Result.Ok()
+            : Result.Error(result.Errors.FirstOrDefault()?.Description ?? "Unable to save changes for Authentication User");
+    }
 }

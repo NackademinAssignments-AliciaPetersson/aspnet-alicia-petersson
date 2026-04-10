@@ -1,4 +1,6 @@
-﻿namespace Domain.Aggregates.Member;
+﻿using Domain.Common.Validators;
+
+namespace Domain.Aggregates.Member;
 
 public sealed class Member
 {
@@ -25,5 +27,17 @@ public sealed class Member
     public static Member Rehydrated(string id, string userId, string? firstName = null, string? lastName = null, string? profileImageUrl = null)
     {
         return new(id, userId, firstName, lastName, profileImageUrl);
+    }
+
+    public void UpdateDetailsInformation(string? newFirstName, string? newLastName, string? newProfileImageUrl)
+    {
+        if (!string.IsNullOrWhiteSpace(newFirstName))
+            FirstName = newFirstName;
+
+        if (!string.IsNullOrWhiteSpace(newLastName))
+            LastName = newLastName;
+        
+        if (!string.IsNullOrWhiteSpace(newProfileImageUrl))
+            ProfileImageUrl = newProfileImageUrl;
     }
 }
