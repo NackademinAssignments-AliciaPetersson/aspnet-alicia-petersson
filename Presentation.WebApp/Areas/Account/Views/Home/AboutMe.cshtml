@@ -17,6 +17,12 @@
 		&& (string.IsNullOrEmpty(area) || string.Equals(currentArea, area, StringComparison.OrdinalIgnoreCase));
 	}
 }
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+	<div class="message-box">
+		<p class="text-danger">@Model.Message</p>
+	</div>
+}
 <h1 class="section-heading page-title">@pageTitle</h1>
 <div class="container section account-page">
 	<aside class="profile-aside">

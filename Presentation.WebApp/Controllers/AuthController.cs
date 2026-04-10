@@ -97,8 +97,13 @@ public class AuthController(IAuthService authService, IMemberService memberServi
         }
 
         HttpContext.Session.Remove(EmailSessionKey);
+        var signedIn = await authService.SignInLocalUserAsync(form.Email, form.Password);
+        if (!signedIn.Success)
+            return RedirectToAction(nameof(SignIn));
 
-        return RedirectToAction(nameof(SignIn));
+        return RedirectWhenSignedIn ?? Redirect("/");
+
+
     }
     #endregion
 

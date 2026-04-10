@@ -40,4 +40,33 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
 
         return Result.Ok();        
     }
+
+    public async Task<Result> DeleteMemberAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.BadRequest("UserId is missing");
+
+        var member = await memberRepo.GetByUserIdAsync(userId, ct);
+        if (member is null)
+            return Result.NotFound($"Member with userId ID '{userId}' not found");
+
+        await uow.ExecuteInTransactionAsync(async token =>
+        { 
+            var memberDeleted = await memberRepo.RemoveByIdAsync(member.Id, ct);
+            if (!memberDeleted)
+            {
+                logger.Log($"Member with Id '{member.Id}' was not able to be removed");
+                throw new NotRemovedDomainException($"Member with Id '{member.Id}' was not removed");
+            }
+
+            var accountDeleted = await authService.DeleteAccountAsync(member.UserId);
+            if (!accountDeleted)
+            {
+                logger.Log($"AuthenticationUser with userId '{member.UserId}' was not able to be removed");
+                throw new NotRemovedDomainException($"AuthenticationUser with userId '{member.UserId}' was not removed");
+            }
+        }, ct);
+
+        return Result.Ok();
+    }
 }

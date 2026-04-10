@@ -484,6 +484,11 @@ form {
     }
 }
 
+.message-box {
+    padding: 2rem;
+    text-align: center;
+}
+
 /* UTILS */
 .text-danger {
     display: block;
