@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Identity;
 using Application.Common.Results;
+using Domain.Exceptions.Custom;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,10 @@ public sealed class IdentityAuthService(UserManager<AuthenticationUser> userMana
     public async Task<Result<string?>> SignUpLocalUserAsync(string email, string password, string? roleName = null)
     {
         if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentNullException(nameof(email));
+            throw new NullDomainException($"{nameof(email)} cannot be null");
 
         if (string.IsNullOrWhiteSpace(password))
-            throw new ArgumentNullException(nameof(password));
+            throw new NullDomainException($"{nameof(password)} cannot be null");
 
         var user = new AuthenticationUser
         {
@@ -51,4 +52,6 @@ public sealed class IdentityAuthService(UserManager<AuthenticationUser> userMana
 
         return Result.Ok();
     }
+
+    public Task SignOutUserAsync() => signInManager.SignOutAsync();
 }

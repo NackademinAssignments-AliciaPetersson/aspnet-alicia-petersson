@@ -31,6 +31,7 @@ public static class IdentityRegistrationExtension
         });
 
         services.AddScoped<IAuthService, IdentityAuthService>();
+        services.AddScoped<IAccountService, IdentityAccountService>();
 
         return services;
     }

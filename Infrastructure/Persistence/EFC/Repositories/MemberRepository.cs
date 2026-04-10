@@ -2,14 +2,35 @@
 using Domain.Aggregates.Member;
 using Infrastructure.Persistence.EFC.Contexts;
 using Infrastructure.Persistence.EFC.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.EFC.Repositories;
 
 public class MemberRepository(CoreFitnessContext context, ILogger logger) : RepositoryBase<Member, string, MemberEntity, CoreFitnessContext>(context, logger), IMemberRepository
 {
+    public async Task<Member?> GetByUserIdAsync(string userId, CancellationToken ct = default)
+    {
+        try
+        {
+            var entity = await Set.AsNoTracking().SingleOrDefaultAsync(e => e.UserId == userId, ct);
+            return entity is null ? default : ToDomainModel(entity);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.Log(ex);
+            throw;
+        }
+    }
+
     protected override void ApplyUpdates(Member model, MemberEntity entity)
     {
-        throw new NotImplementedException();
+        entity.FirstName = model.FirstName;
+        entity.LastName = model.LastName;
+        entity.ProfileImageUrl = model.ProfileImageUrl;
     }
 
     protected override Member ToDomainModel(MemberEntity entity)
