@@ -1,0 +1,27 @@
+﻿@model MyMembershipViewModel
+@section Styles {
+	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+}
+@{
+	var pageTitle = "My Account";
+}
+@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
+{
+	<div class="message-box">
+		<p class="text-danger">@ViewData["ErrorMessage"]?.ToString()</p>
+	</div>
+}
+<h1 class="section-heading page-title">@pageTitle</h1>
+<div class="container section account-page">
+	<partial name="Partials/Common/_AccountAside" model="@Model.ProfileImageUrl" />
+	<main>
+		<section class="card about-me-card">
+			<h2 class="section-heading">My Membership</h2>
+			<hr class="divider" />
+
+			
+		</section>
+
+		
+	</main>
+</div>
