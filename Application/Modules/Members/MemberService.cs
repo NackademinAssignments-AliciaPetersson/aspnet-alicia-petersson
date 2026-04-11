@@ -15,7 +15,7 @@ namespace Application.Modules.Members;
 public sealed class MemberService(IAuthService authService, ILogger logger, IMemberRepository memberRepo, IAccountService accountService, IUnitOfWork uow) : IMemberService
 {
     public async Task<Result> CreateMemberAsync(CreateMemberInput input, CancellationToken ct = default)
-    {        
+    {
         if (input is null)
             return Result.BadRequest("input model must be provided");
 
@@ -40,7 +40,25 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
             createdMember = await memberRepo.AddAsync(member, token);
         }, ct);
 
-        return Result.Ok();        
+        return createdMember is not null ? Result.Ok() : Result.Error("Could not create member");
+    }
+
+    public async Task<Result> CreateMemberForExternalUserAsync(CreateExternalMemberInput input, CancellationToken ct = default)
+    {
+        if (input is null)
+            return Result.BadRequest("input model must be provided");
+
+        if (input.Email is null)
+            return Result.BadRequest("email must be provided");       
+
+        var userId = GuidValidator.EnsureValidGuid(input.UserId);
+
+        var member = Member.Create(userId, input.FirstName, input.LastName, input.ProfileImageUrl);
+
+        Member? createdMember = await memberRepo.AddAsync(member, ct);
+        await uow.CommitAsync(ct);
+
+        return createdMember is not null ? Result.Ok() : Result.Error("Could not create member");
     }
 
     public async Task<Result> DeleteMemberAsync(string userId, CancellationToken ct = default)

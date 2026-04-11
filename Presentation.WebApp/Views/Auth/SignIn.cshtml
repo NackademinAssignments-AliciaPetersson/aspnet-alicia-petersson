@@ -16,7 +16,12 @@
 	<div class="image-wrapper">
 		<a class="branding-icon-link" href="#" aria-label="Log in with Google"> <img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/web_light_rd_na@2x.png" alt="Google Logo"> </a>
 		<a class="branding-icon-link" href="#" aria-label="Log in with Facebook"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/Facebook_Logo_Primary.png" alt="Facebook Logo"></a>
-		<a class="branding-icon-link" href="#" aria-label="Log in with Github"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/GitHub_Invertocat_Black.png" alt="Github Logo"></a>
+		<form method="post" asp-controller="Auth" asp-action="ExternalSignIn">
+			@Html.AntiForgeryToken()
+			<input type="hidden" name="provider" value="GitHub" />
+			<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+			<button class="btn-blank branding-icon-link" aria-label="Log in with Github" type="submit"><img aria-hidden="true" class="branding-icon-img" src="~/images/third-party-icons/GitHub_Invertocat_Black.png" alt="Github Logo"></button>
+		</form>		
 	</div>
 	<p class="divider-with-text"><span>or continue with</span></p>
 	<form id="signInForm" method="post" asp-action="SignIn" asp-controller="Auth" novalidate>
