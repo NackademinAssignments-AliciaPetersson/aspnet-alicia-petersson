@@ -297,13 +297,19 @@ form {
         display: inline-flex;
         flex-direction: row;
         gap: 0.5rem;
-        align-content: center;
+        align-items: center;
     }
 
     .icon {
         width: var(--bullet-list-icon-size);
         fill: var(--bullet-list-icon-color);
     }
+}
+
+.bullet-list.vertical-list {
+    display: flex;
+    justify-content: center;
+    color: var(--clr-neutral-900);
 }
 
 .badge {
