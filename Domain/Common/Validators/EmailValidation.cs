@@ -16,6 +16,6 @@ public static class EmailValidation
             throw new ValidationDomainException("Invalid email format");
         }
 
-        return trimmed;
+        return trimmed.ToLowerInvariant();
     }
 }

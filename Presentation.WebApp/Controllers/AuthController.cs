@@ -1,6 +1,9 @@
 ﻿using Application.Abstractions.Identity;
 using Application.Abstractions.Services;
 using Application.Modules.Members.Inputs;
+using Domain.Common.Validators;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Models.SignIn;
 using Presentation.WebApp.Models.SignUp;
@@ -8,7 +11,7 @@ using Presentation.WebApp.Models.SignUp;
 namespace Presentation.WebApp.Controllers;
 
 [Route("auth")]
-public class AuthController(IAuthService authService, IMemberService memberService) : Controller
+public class AuthController(IAuthService authService, IMemberService memberService, SignInManager<AuthenticationUser> signInManager) : Controller
 {
     private const string EmailSessionKey = "EmailSessionKey";
 
@@ -36,7 +39,7 @@ public class AuthController(IAuthService authService, IMemberService memberServi
             return View(form);
         }
 
-        var normalizedEmail = form.Email.Trim().ToLowerInvariant();
+        var normalizedEmail = EmailValidation.Validate(form.Email, "Email");
 
         if (await authService.DoesUserExistAsync(normalizedEmail))
         {
@@ -97,12 +100,12 @@ public class AuthController(IAuthService authService, IMemberService memberServi
         }
 
         HttpContext.Session.Remove(EmailSessionKey);
+
         var signedIn = await authService.SignInLocalUserAsync(form.Email, form.Password);
         if (!signedIn.Success)
             return RedirectToAction(nameof(SignIn));
 
         return RedirectWhenSignedIn ?? Redirect("/");
-
 
     }
     #endregion
@@ -143,6 +146,54 @@ public class AuthController(IAuthService authService, IMemberService memberServi
 
         if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return LocalRedirect(returnUrl);
+
+        return RedirectWhenSignedIn ?? Redirect("/");
+    }
+    #endregion
+
+    #region External Sign In & Sign Up
+    [HttpPost("external-login")]
+    [ValidateAntiForgeryToken]
+    public IActionResult ExternalSignIn(string provider, string? returnUrl = null)
+    {
+        var callbackUrl = Url.Action(nameof(ExternalSignInCallback), "Auth", new
+        {
+            returnUrl
+        });
+
+        var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, callbackUrl);
+        return Challenge(properties, provider);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ExternalSignInCallback(string? returnUrl = null, string? remoteError = null, CancellationToken ct = default)
+    {
+        if (!string.IsNullOrWhiteSpace(remoteError))
+        {
+            TempData["ErrorMessage"] = $"External provider error: {remoteError}";
+            return RedirectToAction(nameof(SignIn), new { returnUrl });
+        }
+
+        var authResult = await authService.SignInExternalMemberAsync("Member");
+        if (!authResult.Success)
+        {
+            TempData["ErrorMessage"] = authResult.ErrorMessage;
+            return RedirectToAction(nameof(SignIn), new { returnUrl });
+        }
+
+        CreateExternalMemberInput? createMemberInput = authResult.Value;
+        if (createMemberInput is not null) 
+        { 
+            var memberResult = await memberService.CreateMemberForExternalUserAsync(createMemberInput, ct);
+            if (!memberResult.Success)
+            {
+                TempData["ErrorMessage"] = memberResult.ErrorMessage;
+                return RedirectToAction(nameof(SignIn), new { returnUrl });
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(returnUrl))
+            return Redirect(returnUrl);
 
         return RedirectWhenSignedIn ?? Redirect("/");
     }

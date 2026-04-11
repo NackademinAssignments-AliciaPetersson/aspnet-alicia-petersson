@@ -15,7 +15,7 @@ public static class PersistenceRegistrationExtension
 
         services.AddEfcContexts(configuration, environment);
         services.AddRepositories();
-        services.AddIdentity();
+        services.AddIdentity(configuration);
 
         return services;
     }
