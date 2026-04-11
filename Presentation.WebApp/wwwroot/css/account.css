@@ -1,5 +1,6 @@
 ﻿.account-page {
     --section-block-margin: 4rem;
+
     display: grid;
     grid-template-columns: auto 1fr;
 
@@ -9,10 +10,25 @@
         max-width: 404px;
     }
 
-    & .about-me-card {
+    & .about-me-card,
+    & .my-membership-card {
         --card-inline-padding: 3.875rem;
         --card-block-padding: 3rem;
+
         margin-bottom: 4rem;
+    }
+
+    & .my-membership-card {
+        & .no-active-membership {
+            font-weight: var(--fw-semi-bold);
+            font-size: var(--fs-section-sub-heading);
+            text-align: center;
+            padding-block: 4rem;
+        }
+
+        & button[type="submit"] {
+            justify-self: center;
+        }
     }
 
     & form {
@@ -22,6 +38,11 @@
     & .divider {
         background-color: var(--clr-neutral-300);
         margin-block: 2rem;
+    }
+
+    & .divider-with-text {
+        --divider-color: var(--clr-neutral-300);
+        margin-top: 1rem;
     }
 
     & button[type="submit"] {
@@ -64,15 +85,15 @@
                 justify-content: space-between;
             }
 
-                & a.active {
-                    color: var(--clr-accent-400);
-                    fill: var(--clr-accent-400);
-                }
+            & a.active {
+                color: var(--clr-accent-400);
+                fill: var(--clr-accent-400);
+            }
         }
 
-            & .menu-item:not(:last-child) {
-                border-bottom: 1px solid var(--clr-neutral-300);
-            }
+        & .menu-item:not(:last-child) {
+            border-bottom: 1px solid var(--clr-neutral-300);
+        }
     }
 
     & .remove-account {
@@ -92,6 +113,7 @@
         & .progress-card {
             --card-block-padding: 1.875rem;
             --card-inline-padding: 3.125rem;
+
             margin-top: 1.25rem;
         }
 
@@ -105,6 +127,7 @@
             & label {
                 font-family: var(--ff-heading);
             }
+
         }
 
         & progress {
@@ -117,24 +140,26 @@
             /* firefox fix */
         }
 
-            & progress::-webkit-progress-bar {
-                background-color: var(--clr-neutral-200);
-                border-radius: 100vw;
-            }
+        & progress::-webkit-progress-bar {
+            background-color: var(--clr-neutral-200);
+            border-radius: 100vw;
+        }
 
-            & progress::-webkit-progress-value {
-                background-color: var(--clr-accent-400);
-                border-radius: 100vw;
-            }
-            /* firefox */
-            & progress::-moz-progress-bar {
-                background-color: var(--clr-accent-400);
-                border-radius: 100vw;
-            }
+        & progress::-webkit-progress-value {
+            background-color: var(--clr-accent-400);
+            border-radius: 100vw;
+        }
+
+        /* firefox */
+        & progress::-moz-progress-bar {
+            background-color: var(--clr-accent-400);
+            border-radius: 100vw;
+        }
     }
 
     @media (width < 992px) {
         --section-block-margin: 2rem;
+
         grid-template-columns: 1fr;
 
         & .profile-aside {
