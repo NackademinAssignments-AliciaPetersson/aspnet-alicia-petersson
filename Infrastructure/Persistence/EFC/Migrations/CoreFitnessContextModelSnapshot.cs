@@ -175,8 +175,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
 
                     b.Property<string>("MemberId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MembershipTypeId")
                         .HasColumnType("int");

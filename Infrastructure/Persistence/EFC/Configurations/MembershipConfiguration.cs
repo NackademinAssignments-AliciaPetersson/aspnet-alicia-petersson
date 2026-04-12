@@ -17,8 +17,7 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
             .IsRequired();
 
         builder.Property(e => e.MemberId)
-            .IsRequired()
-            .HasMaxLength(36);
+            .IsRequired();
 
         builder.Property(e => e.MembershipTypeId)
             .IsRequired();

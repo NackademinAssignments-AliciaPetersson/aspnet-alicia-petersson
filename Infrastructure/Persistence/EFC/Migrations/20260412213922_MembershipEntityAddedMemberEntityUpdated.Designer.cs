@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.EFC.Migrations
 {
     [DbContext(typeof(CoreFitnessContext))]
-    [Migration("20260412163627_MembershipEntityAddedMemberEntityUpdated")]
+    [Migration("20260412213922_MembershipEntityAddedMemberEntityUpdated")]
     partial class MembershipEntityAddedMemberEntityUpdated
     {
         /// <inheritdoc />
@@ -178,8 +178,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
 
                     b.Property<string>("MemberId")
                         .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MembershipTypeId")
                         .HasColumnType("int");
