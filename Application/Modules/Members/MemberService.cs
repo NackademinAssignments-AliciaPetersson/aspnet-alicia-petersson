@@ -138,7 +138,7 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         await uow.ExecuteInTransactionAsync(async token =>
         {
             var updatedMember = await memberRepo.UpdateAsync(member.Id, member, ct);
-            if (member is null)
+            if (updatedMember is null)
                 throw new NotUpdatedDomainException("Member could not be updated");
 
             var authUserInput = new UpdateAuthenticationUserDetailsInput(details.UserId, details.PhoneNumber);
