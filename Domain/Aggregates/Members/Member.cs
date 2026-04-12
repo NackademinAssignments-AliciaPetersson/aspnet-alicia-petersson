@@ -71,7 +71,7 @@ public sealed class Member
         if (CurrentMembership.Id != membership.Id)
             throw new ValidationDomainException("Can't cancel a membership that is not the current active membership");
 
-        if (_memberships.Any(ms => ms.Id != membership.Id))
+        if (!_memberships.Any(ms => ms.Id == membership.Id))
             throw new ValidationDomainException("Membership does not belong to this member");
 
         membership.Deactivate();
