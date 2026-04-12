@@ -21,37 +21,34 @@
 
 			<p class="no-active-membership">No Active Membership</p>
 			<p class="divider-with-text"><span>choose membership</span></p>
-			<form id="accountForm"
+
+			<form id="membershipForm"
 				  method="post"
 				  asp-area="Account"
 				  asp-controller="Membership"
 				  asp-action="MyMembership"
 				  novalidate>
+				<input type="hidden" asp-for="ProfileImageUrl" />
+				
 				<div aria-label="Choose membership type" class="form-radio-group">
+					@foreach ( var option in Model.ChooseMembershipForm.AvailableOptions)
+					{
 					<div class="radio-row">
 						<input type="radio"
-							   class="form-check-input"
-							   id="radio-1"
-							   name="SelectedMembership"
-							   value="1" />
-						<label class="form-check-label" for="radio-1">
-							Standard Membership
+								class="form-check-input"
+								id="membership-@option.Id"
+								   name="ChooseMembershipForm.SelectedMembership"
+								value="@option.Id"
+							@(Model.ChooseMembershipForm.SelectedMembership == option.Id.ToString() ? "checked" : "") />
+						<label class="form-check-label" for="membership-@option.Id">
+							@option.Name
 						</label>
 					</div>
-
-					<div class="radio-row">
-						<input type="radio"
-							   class="form-check-input"
-							   id="radio-2"
-							   name="SelectedMembership"
-							   value="2" />
-						<label class="form-check-label" for="radio-2">
-							Premium Membership
-						</label>
-					</div>
+					}
 				</div>
+				<span asp-validation-for="ChooseMembershipForm.SelectedMembership" class="text-danger text-center"></span>
 
-				<button class="primary-btn submit-membership" type="submit">
+				<button class="primary-btn submit-membership" type="submit") >
 					Save
 					<partial name="Partials/Icons/_ChevronRight" />
 				</button>

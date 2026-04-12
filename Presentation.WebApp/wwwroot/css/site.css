@@ -273,6 +273,14 @@ form {
     transition-property: color, fill;
 }
 
+.primary-btn[disabled="true"],
+.primary-btn[disabled] {
+    background-color: var(--clr-neutral-200);
+    color: var(--clr-neutral-500);
+    fill: var(--clr-neutral-500);
+    border-color: var(--clr-neutral-500);
+}
+
 .icon-btn,
 .btn-blank {
     border: none;
