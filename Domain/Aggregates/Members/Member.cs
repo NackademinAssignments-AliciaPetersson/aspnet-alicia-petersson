@@ -5,13 +5,14 @@ namespace Domain.Aggregates.Members;
 
 public sealed class Member
 {
-    private Member(string id, string userId, string? firstName, string? lastName, string? profileImageUrl, string? currentMembershipId)
+    private Member(string id, string userId, string? firstName, string? lastName, string? profileImageUrl, IReadOnlyCollection<Membership> memberships)
     {
         Id = id;
         UserId = userId;
         FirstName = firstName;
         LastName = lastName;
         ProfileImageUrl = profileImageUrl;
+        _memberships = [.. memberships];
     }
 
     public string Id { get; private set; } = null!;
@@ -22,17 +23,17 @@ public sealed class Member
 
     private readonly List<Membership> _memberships = [];
     public IReadOnlyCollection<Membership> Memberships => _memberships.AsReadOnly();
-    private Membership? CurrentMembership => _memberships.OrderByDescending(membership => membership.StartDateUtc).FirstOrDefault(membership => membership.IsActive);
+    public Membership? CurrentMembership => _memberships.OrderByDescending(membership => membership.StartDateUtc).FirstOrDefault(membership => membership.IsActive);
 
 
     public static Member Create(string userId, string? firstName = null, string? lastName = null, string? profileImageUrl = null)
     {
-        return new(Guid.NewGuid().ToString(), userId, firstName, lastName, profileImageUrl, null);
+        return new(Guid.NewGuid().ToString(), userId, firstName, lastName, profileImageUrl, []);
     }
 
-    public static Member Rehydrated(string id, string userId, string? firstName = null, string? lastName = null, string? profileImageUrl = null, string? currentMembershipId = null)
+    public static Member Rehydrated(string id, string userId, string? firstName = null, string? lastName = null, string? profileImageUrl = null, IReadOnlyCollection<Membership>? memberships = null)
     {
-        return new(id, userId, firstName, lastName, profileImageUrl, currentMembershipId);
+        return new(id, userId, firstName, lastName, profileImageUrl, memberships ?? []);
     }
 
     public void UpdateDetailsInformation(string? newFirstName, string? newLastName, string? newProfileImageUrl)

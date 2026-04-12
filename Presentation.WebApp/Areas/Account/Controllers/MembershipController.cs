@@ -23,20 +23,39 @@ public class MembershipController(IMemberService memberService, IMembershipTypeS
         if (!accountResult.Success)
             return RedirectToAction(nameof(SignOut));
 
-        var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
-        if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+        var membershipDetailsResult = await memberService.GetMembershipDetailsAsync(userId);
+        if (!membershipDetailsResult.Success)
         {
-            ViewData["ErrorMessage"] = "Could not load membership types.";
+            ViewData["ErrorMessage"] = "Could not load membership details.";
             return View(new MyMembershipViewModel());
         }
 
+        var activeMembership = membershipDetailsResult.Value?.ActiveMembership; ;
+
         var viewModel = new MyMembershipViewModel
-        {
-            ChooseMembershipForm = new ChooseMembershipForm() {
-                AvailableOptions = [.. membershipTypesResult.Value]
-            },
+        {            
             ProfileImageUrl = accountResult.Value?.ImageUrl ?? "/images/default_profile_image.png"
         };
+
+        if (activeMembership is not null)
+        {
+            viewModel.ShowChooseMembershipForm = false;
+            viewModel.ActiveMembership = activeMembership;
+        }
+        else
+        {
+            var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
+            if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+            {
+                ViewData["ErrorMessage"] = "Could not load membership types.";
+                return View(new MyMembershipViewModel());
+            }
+
+            viewModel.ChooseMembershipForm = new ChooseMembershipForm()
+            {
+                AvailableOptions = [.. membershipTypesResult.Value]
+            };
+        }
 
         return View(viewModel);
     }
@@ -48,24 +67,33 @@ public class MembershipController(IMemberService memberService, IMembershipTypeS
         if (string.IsNullOrWhiteSpace(userId))
             return RedirectToAction(nameof(SignOut));
 
-        //reloads avalibale Membership types. Profile image url loaded via hidden input
-        var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
-        if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+        var isInteger = int.TryParse(viewModel.ChooseMembershipForm.SelectedMembership, out int membershipTypeId);
+
+        if (!ModelState.IsValid || !isInteger)
         {
-            ViewData["ErrorMessage"] = "Could not load membership types.";
-            return View(new MyMembershipViewModel());
-        }
+            //reloads avalibale Membership types. Profile image url loaded via hidden input
+            var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
+            if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+            {
+                ViewData["ErrorMessage"] = "Could not load membership types.";
+                return View(new MyMembershipViewModel());
+            }
 
-        viewModel.ChooseMembershipForm.AvailableOptions = [.. membershipTypesResult.Value];        
+            viewModel.ChooseMembershipForm.AvailableOptions = [.. membershipTypesResult.Value];
 
-        if (!ModelState.IsValid)
+            ViewData["ErrorMessage"] = "Error with selected membership. Try Again Later!";
             return View(viewModel);
-
-        int.TryParse(viewModel.ChooseMembershipForm.SelectedMembership, out int membershipTypeId);
+        }
 
         var input = new SetMembershipInput(userId, membershipTypeId);
         var membershipResult = await memberService.SetMembershipAsync(input);
 
-        return View(viewModel);
+        if (!membershipResult.Success)
+        {
+            ViewData["ErrorMessage"] = membershipResult.ErrorMessage;
+            return View(viewModel);
+        }
+
+        return RedirectToAction(nameof(MyMembership));
     }
 }

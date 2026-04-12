@@ -13,9 +13,9 @@ public sealed class Membership
             throw new ValidationDomainException("Membership Type is required.");
         MembershipType = membershipType;
         
-        if (startDateUtc < DateTime.UtcNow)        
+        if (startDateUtc.Date < DateTime.UtcNow.Date)
             throw new ValidationDomainException("Start date cannot be before current time.");
-        if (startDateUtc > endDateUtc)
+        if (endDateUtc is not null && startDateUtc > endDateUtc)
             throw new ValidationDomainException("Start date cannot be after end date.");
 
         StartDateUtc = startDateUtc;        

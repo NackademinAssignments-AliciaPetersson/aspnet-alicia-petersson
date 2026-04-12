@@ -29,6 +29,11 @@
         & button[type="submit"] {
             justify-self: center;
         }
+
+        & .membership-title {
+            font-size: var(--fs-section-sub-heading);
+            font-weight: var(--fw-regular);
+        }
     }
 
     & form {

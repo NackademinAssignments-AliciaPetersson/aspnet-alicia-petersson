@@ -164,7 +164,10 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         try
         {
             member.AcquireMembership(membershipType);
-            //var updatedMember = await memberRepo.UpdateAsync(member.Id, member, ct);
+            var updatedMember = await memberRepo.UpdateAsync(member.Id, member, ct);
+
+            if (updatedMember is null)
+                return Result.Error("Could not update Member");
         }
         catch (ValidationDomainException ex)
         {
@@ -178,5 +181,25 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         var saved = await uow.CommitAsync(ct);
 
         return saved > 0 ? Result.Ok() : Result.Error();
+    }
+
+    public async Task<Result<MembershipDetails?>> GetMembershipDetailsAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result<MembershipDetails?>.BadRequest($"{nameof(userId)} cannot be null");
+
+        var member = await memberRepo.GetByUserIdAsync(userId, ct);
+        if (member is null)
+            return Result<MembershipDetails?>.NotFound($"Member with user Id '{userId}' was not found");
+
+        var currentMembership = member.CurrentMembership;
+
+        var membershipInfo = currentMembership is null 
+            ? null 
+            : new ActiveMembership(currentMembership.Id, currentMembership.MembershipType.Name, currentMembership.StartDateUtc, currentMembership.MonthlyPrice);
+
+        var details = new MembershipDetails(member.Id, member.UserId, membershipInfo);
+
+        return Result<MembershipDetails?>.Ok(details);
     }
 }

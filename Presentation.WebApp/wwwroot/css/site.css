@@ -530,6 +530,10 @@ form {
     font-size: 0.75rem;
 }
 
+.bold {
+    font-weight: var(--fw-bold);
+}
+
 .two-columns {
     display: flex;
     flex-direction: row;
