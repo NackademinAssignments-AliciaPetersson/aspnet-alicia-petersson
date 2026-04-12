@@ -1,0 +1,57 @@
+﻿/* 
+  -------- LOGO BANNER ---------
+*/
+.logo-banner-container {
+    --banner-bg: var(--clr-accent-400);
+    --banner-block-padding: 1.75rem;
+    --banner-inline-padding: 4rem;
+    --banner-txt-clr: var(--clr-primary-400);
+    --banner-logo-clr: var(--clr-primary-600);
+    --ff-logo-banner: var(--ff-poppins);
+
+    background-color: var(--banner-bg);
+    margin-block: 1rem;
+    padding: var(--banner-block-padding) var(--banner-inline-padding);
+    border-radius: var(--border-radius-standard);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 120px;
+    
+    .logos-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 3.125rem;
+        overflow-x: auto;
+
+        & img {
+            fill: var(--banner-logo-clr);
+            max-width: 100%;
+            height: auto;
+        }
+    }
+
+    .banner-slogan {
+        color: var(--banner-txt-clr);
+        font-weight: var(--fw-bold);
+        font-family: var(--ff-logo-banner);
+        font-size: var(--fs-section-heading);
+        line-height: 65px;
+    }
+
+    @media (width < 1698px) {
+        --banner-inline-padding: 2rem;
+
+        .banner-slogan {
+            display: none;
+        }
+
+        .logos-wrapper {
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+}
+/* 
+  --------  END LOGO BANNER ---------
+*/

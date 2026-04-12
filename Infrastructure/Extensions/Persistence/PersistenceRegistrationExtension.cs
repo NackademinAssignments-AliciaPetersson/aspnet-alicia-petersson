@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Infrastructure.Extensions.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,6 +15,7 @@ public static class PersistenceRegistrationExtension
 
         services.AddEfcContexts(configuration, environment);
         services.AddRepositories();
+        services.AddIdentity(configuration);
 
         return services;
     }

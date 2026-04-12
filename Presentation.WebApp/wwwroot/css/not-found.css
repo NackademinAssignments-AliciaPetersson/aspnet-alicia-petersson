@@ -1,0 +1,18 @@
+﻿.not-found-wrapper {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    gap: 2.813rem;
+    padding-block: 9rem;
+    text-align: center;
+
+    .heading {
+        font-size: var(--fs-big-heading);
+    }
+
+    p {
+        line-height: 65px;
+        color: var(--clr-neutral-600);
+    }
+}

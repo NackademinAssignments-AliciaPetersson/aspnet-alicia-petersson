@@ -1,0 +1,99 @@
+﻿using Application.Abstractions.Services;
+using Application.Modules.Members.Inputs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Presentation.WebApp.Areas.Account.Models;
+using System.Security.Claims;
+
+namespace Presentation.WebApp.Areas.Account.Controllers;
+
+[Area("Account")]
+[Route("account")]
+[Authorize(Roles = "Member")]
+public class MembershipController(IMemberService memberService, IMembershipTypeService membershipTypeService) : Controller
+{
+    [HttpGet("my-membership")]
+    public async Task<IActionResult> MyMembership()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrWhiteSpace(userId))
+            return RedirectToAction(nameof(SignOut));
+
+        var accountResult = await memberService.GetMemberDetailsAsync(userId);
+        if (!accountResult.Success)
+            return RedirectToAction(nameof(SignOut));
+
+        var membershipDetailsResult = await memberService.GetMembershipDetailsAsync(userId);
+        if (!membershipDetailsResult.Success)
+        {
+            ViewData["ErrorMessage"] = "Could not load membership details.";
+            return View(new MyMembershipViewModel());
+        }
+
+        var activeMembership = membershipDetailsResult.Value?.ActiveMembership; ;
+
+        var viewModel = new MyMembershipViewModel
+        {            
+            ProfileImageUrl = accountResult.Value?.ImageUrl ?? "/images/default_profile_image.png"
+        };
+
+        if (activeMembership is not null)
+        {
+            viewModel.ShowChooseMembershipForm = false;
+            viewModel.ActiveMembership = activeMembership;
+        }
+        else
+        {
+            var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
+            if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+            {
+                ViewData["ErrorMessage"] = "Could not load membership types.";
+                return View(new MyMembershipViewModel());
+            }
+
+            viewModel.ChooseMembershipForm = new ChooseMembershipForm()
+            {
+                AvailableOptions = [.. membershipTypesResult.Value]
+            };
+        }
+
+        return View(viewModel);
+    }
+
+    [HttpPost("my-membership")]
+    public async Task<IActionResult> MyMembership(MyMembershipViewModel viewModel)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrWhiteSpace(userId))
+            return RedirectToAction(nameof(SignOut));
+
+        var isInteger = int.TryParse(viewModel.ChooseMembershipForm.SelectedMembership, out int membershipTypeId);
+
+        if (!ModelState.IsValid || !isInteger)
+        {
+            //reloads avalibale Membership types. Profile image url loaded via hidden input
+            var membershipTypesResult = await membershipTypeService.GetMembershipTypesAsync();
+            if (!membershipTypesResult.Success || membershipTypesResult.Value is null)
+            {
+                ViewData["ErrorMessage"] = "Could not load membership types.";
+                return View(new MyMembershipViewModel());
+            }
+
+            viewModel.ChooseMembershipForm.AvailableOptions = [.. membershipTypesResult.Value];
+
+            ViewData["ErrorMessage"] = "Error with selected membership. Try Again Later!";
+            return View(viewModel);
+        }
+
+        var input = new SetMembershipInput(userId, membershipTypeId);
+        var membershipResult = await memberService.SetMembershipAsync(input);
+
+        if (!membershipResult.Success)
+        {
+            ViewData["ErrorMessage"] = membershipResult.ErrorMessage;
+            return View(viewModel);
+        }
+
+        return RedirectToAction(nameof(MyMembership));
+    }
+}

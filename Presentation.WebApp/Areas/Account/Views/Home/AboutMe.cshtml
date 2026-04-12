@@ -1,0 +1,108 @@
+﻿
+@model AboutMeViewModel
+@section Styles {
+	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+}
+@{
+	var pageTitle = "My Account";	
+}
+@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
+{
+	<div class="message-box">
+		<p class="text-danger">@ViewData["ErrorMessage"]?.ToString()</p>
+	</div>
+}
+<h1 class="section-heading page-title">@pageTitle</h1>
+<div class="container section account-page">
+	<partial name="Partials/Common/_AccountAside" model="@Model.ProfileImageUrl" />
+	<main>
+		<section class="card about-me-card">
+			<h2 class="section-heading">About Me</h2>
+			<hr class="divider" />
+
+			<form id="accountForm"
+				  enctype="multipart/form-data"
+				  method="post"
+				  asp-area="Account"
+				  asp-controller="Home"
+				  asp-action="AboutMe"
+				  novalidate>
+				@Html.AntiForgeryToken()
+				<input type="hidden" asp-for="ProfileImageUrl" />
+				<div class="form-group">
+					<label class="form-label" asp-for="AboutMeForm.FirstName">First Name</label>
+					<input class="form-input"
+						   asp-for="AboutMeForm.FirstName"
+						   placeholder="Enter First Name" />
+					<span asp-validation-for="AboutMeForm.FirstName" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" asp-for="AboutMeForm.LastName">Last Name</label>
+					<input class="form-input"
+						   asp-for="AboutMeForm.LastName" />
+					<span asp-validation-for="AboutMeForm.LastName" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" asp-for="AboutMeForm.Email">Email Address *</label>
+					<input class="form-input"
+						   asp-for="AboutMeForm.Email"
+						   readonly />
+					<span asp-validation-for="AboutMeForm.Email" class="text-danger"></span>
+				</div>
+
+				<div class="form-group">
+					<label class="form-label" asp-for="AboutMeForm.PhoneNumber">Phone Number</label>
+					<input class="form-input"
+						   asp-for="AboutMeForm.PhoneNumber"/>
+					<span asp-validation-for="AboutMeForm.PhoneNumber" class="text-danger"></span>
+				</div>
+
+				<hr class="divider" />
+
+				<div class="form-group">
+					<label class="form-label" asp-for="AboutMeForm.ProfileImage">Profile Image</label>
+					<input type="file"
+						   class="form-input file-input"
+						   asp-for="AboutMeForm.ProfileImage" />
+					<span asp-validation-for="AboutMeForm.ProfileImage" class="text-danger"></span>
+				</div>
+
+				<button class="primary-btn" type="submit">
+					Save
+					<partial name="Partials/Icons/_ChevronRight" />
+				</button>
+			</form>
+		</section>
+
+		<section class="progress-section">
+			<h2 class="section-heading">My Statistics</h2>
+			<div class="card progress-card">
+				<div class="progress-group">
+					<div class="progress-title-wrapper">
+						<label for="check-ins">Check-In (last 30 days)</label>
+						<span>25</span>
+					</div>
+					<progress id="check-ins" value="25" max="30">25 st</progress>
+				</div>
+
+				<div class="progress-group">
+					<div class="progress-title-wrapper">
+						<label for="goal">Weight Goal</label>
+						<span>50%</span>
+					</div>
+					<progress id="goal" value="60" max="120">50%</progress>
+				</div>
+                            
+				<div class="progress-group">
+					<div class="progress-title-wrapper">
+						<label for="bmi">Current BMI</label>
+						<span>27</span>
+					</div>
+					<progress id="bmi" value="27" max="40">27</progress>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>

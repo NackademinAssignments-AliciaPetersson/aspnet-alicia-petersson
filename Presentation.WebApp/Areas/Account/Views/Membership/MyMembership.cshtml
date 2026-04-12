@@ -1,0 +1,69 @@
+﻿@model MyMembershipViewModel
+@section Styles {
+	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+}
+@{
+	var pageTitle = "My Account";
+}
+@if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
+{
+	<div class="message-box">
+		<p class="text-danger">@ViewData["ErrorMessage"]?.ToString()</p>
+	</div>
+}
+<h1 class="section-heading page-title">@pageTitle</h1>
+<div class="container section account-page">
+	<partial name="Partials/Common/_AccountAside" model="@Model.ProfileImageUrl" />
+	<main>
+		<section class="card my-membership-card">
+			<h2 class="section-heading">My Membership</h2>
+			<hr class="divider" />
+
+			@if (Model.ActiveMembership is null)
+			{
+			<p class="no-active-membership">No Active Membership</p>
+			<p class="divider-with-text"><span>choose membership</span></p>
+
+			<form id="membershipForm"
+					method="post"
+					asp-area="Account"
+					asp-controller="Membership"
+					asp-action="MyMembership"
+					novalidate>
+				<input type="hidden" asp-for="ProfileImageUrl" />
+				
+				<div aria-label="Choose membership type" class="form-radio-group">
+					@foreach (var option in Model.ChooseMembershipForm.AvailableOptions)
+					{
+						<div class="radio-row">
+							<input type="radio"
+									class="form-check-input"
+									id="membership-@option.Id"
+									name="ChooseMembershipForm.SelectedMembership"
+									value="@option.Id"
+							@(Model.ChooseMembershipForm.SelectedMembership == option.Id.ToString() ? "checked" : "") />
+							<label class="form-check-label" for="membership-@option.Id">
+								@option.Name
+							</label>
+						</div>
+					}
+				</div>
+				<span asp-validation-for="ChooseMembershipForm.SelectedMembership" class="text-danger text-center"></span>
+
+				<button class="primary-btn submit-membership" type="submit" )>
+					Save
+					<partial name="Partials/Icons/_ChevronRight" />
+				</button>
+			</form>
+			}
+			else
+			{
+			<div class="active-membership card-dark">
+				<h3 class="membership-title">@Model.ActiveMembership.Name</h3>
+				<p><span class="bold">Start Date: </span> @Model.ActiveMembership.StartDate</p>
+				<p><span class="bold">Price: </span> @Model.ActiveMembership.MonthlyPrice /month</p>
+			</div>
+			}
+			</section>		
+	</main>
+</div>

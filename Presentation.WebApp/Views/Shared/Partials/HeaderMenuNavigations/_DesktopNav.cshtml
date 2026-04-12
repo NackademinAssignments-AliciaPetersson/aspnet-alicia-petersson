@@ -1,0 +1,106 @@
+﻿@{
+	var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+	var currentArea = ViewContext.RouteData.Values["area"]?.ToString();
+
+	bool isLinkActive(string controller, string action, string? area = null)
+	{
+		return string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase)
+		&& string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase)
+		&& (string.IsNullOrEmpty(area) || string.Equals(currentArea, area, StringComparison.OrdinalIgnoreCase));
+	}
+}
+<nav class="main-menu menu">
+	<a class="menu-item @(isLinkActive("FitnessCenters", "Index") ? "active" : "")" asp-controller="FitnessCenters" asp-action="Index">Fitness Centers</a>
+	<a class="menu-item @(isLinkActive("Memberships", "Index") ? "active" : "")" asp-controller="Memberships" asp-action="Index">Memberships</a>
+	<div class="menu-item dropdown">
+		<button 
+			type="button"
+			aria-expanded="false"
+			aria-controls="training-group"
+			class="btn-blank menu-item dropdown-trigger desktop-dropdown-trigger"
+		>
+			Training
+			<partial name="Partials/Icons/_ChevronDown" />
+		</button>
+		<div class="dropdown-menu">
+			<ul>
+				<li>
+					<a class="dropdown-item @(isLinkActive("Trainings", "PersonalTraining") ? "active" : "")" asp-controller="Trainings" asp-action="PersonalTraining">Personal Training</a>
+				</li>
+				<li><a class="dropdown-item @(isLinkActive("Trainings", "GroupTraining") ? "active" : "")" asp-controller="Trainings" asp-action="GroupTraining">Group Training</a></li>
+				<li><a class="dropdown-item @(isLinkActive("Trainings", "Padel") ? "active" : "")" asp-controller="Trainings" asp-action="Padel">Padel</a></li>
+			</ul>
+		</div>
+	</div>
+	<a class="menu-item @(isLinkActive("CustomerService", "Index") ? "active" : "")" asp-controller="CustomerService" asp-action="Index"> Customer Service </a>
+	<a class="menu-item @(isLinkActive("Store", "Index") ? "active" : "")" asp-controller="Store" asp-action="Index"> Store </a>
+</nav>
+
+<nav class="menu">
+	<ul class="account-menu">
+		@if (User.Identity?.IsAuthenticated == true)
+		{
+			@if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+			{
+				<li>
+					<a class="signup menu-item"
+						   asp-area="Account"
+						   asp-controller="Home"
+						   asp-action="SignOut">
+						Sign Out
+					</a>
+				</li>
+
+				<li>
+					<a class="primary-btn"
+						   asp-area="Admin"
+						   asp-controller="Home"
+						   asp-action="Index">
+						Admin Center
+						<partial name="Partials/Icons/_ChevronRight" />
+					</a>
+				</li>
+			}
+			else
+			{
+				<li>
+					<a class="signup menu-item"
+						asp-area="Account"
+						asp-controller="Classes"
+						asp-action="Index">
+						Our Classes
+					</a>
+				</li>
+				<li>
+					<a class="primary-btn"
+						   asp-area="Account"
+						   asp-controller="Home"
+						   asp-action="Index">
+						My Account
+						<partial name="Partials/Icons/_ChevronRight" />
+					</a>
+				</li>
+			}
+		}
+		else
+		{
+			<li>
+				<a class="signup menu-item"
+					   asp-controller="Auth"
+					   asp-action="SignUp">
+					Become Member
+				</a>
+			</li>
+			<li>
+				<a class="primary-btn"
+					   asp-controller="Auth"
+					   asp-action="SignIn">
+					Sign In
+					<partial name="Partials/Icons/_ChevronRight" />
+				</a>
+			</li>
+		}
+		
+	</ul>
+</nav>
