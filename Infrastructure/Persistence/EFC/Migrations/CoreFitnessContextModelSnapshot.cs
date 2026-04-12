@@ -202,7 +202,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
 
                             t.HasCheckConstraint("CK_Memberships_MemberIdNotEmpty", "LTRIM(RTRIM([MemberId])) <> ''");
 
-                            t.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[StartDateUtc] <= ISNULL([EndDateUtc], [StartDateUtc])");
+                            t.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[EndDateUtc] IS NULL OR [StartDateUtc] <= [EndDateUtc]");
                         });
                 });
 

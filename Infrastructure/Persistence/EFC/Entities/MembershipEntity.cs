@@ -12,6 +12,6 @@ public sealed class MembershipEntity : IEntity<string>
     public decimal MonthlyPrice { get; set; }
 
     //EFC Navigation props
-    public MemberEntity? Member { get; set; }
-    public MembershipTypeEntity? MembershipType { get; set; }
+    public MemberEntity Member { get; set; } = null!;
+    public MembershipTypeEntity MembershipType { get; set; } = null!;
 }

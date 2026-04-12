@@ -27,7 +27,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
                     table.PrimaryKey("PK_Memberships_Id", x => x.Id);
                     table.CheckConstraint("CK_Memberships_IdNotEmpty", "LTRIM(RTRIM([Id])) <> ''");
                     table.CheckConstraint("CK_Memberships_MemberIdNotEmpty", "LTRIM(RTRIM([MemberId])) <> ''");
-                    table.CheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[StartDateUtc] <= ISNULL([EndDateUtc], [StartDateUtc])");
+                    table.CheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[EndDateUtc] IS NULL OR [StartDateUtc] <= [EndDateUtc]");
                     table.ForeignKey(
                         name: "FK_Memberships_Members_MemberId",
                         column: x => x.MemberId,

@@ -45,7 +45,7 @@ internal sealed class MembershipConfiguration : IEntityTypeConfiguration<Members
             tb.HasCheckConstraint("CK_Memberships_IdNotEmpty", "LTRIM(RTRIM([Id])) <> ''");
             tb.HasCheckConstraint("CK_Memberships_MemberIdNotEmpty", "LTRIM(RTRIM([MemberId])) <> ''");
             tb.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate",
-                "[StartDateUtc] <= ISNULL([EndDateUtc], [StartDateUtc])");
+                "[EndDateUtc] IS NULL OR [StartDateUtc] <= [EndDateUtc]");
         });
 
         //Relations

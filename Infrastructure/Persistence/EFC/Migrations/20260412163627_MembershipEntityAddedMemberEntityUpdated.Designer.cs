@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.EFC.Migrations
 {
     [DbContext(typeof(CoreFitnessContext))]
-    [Migration("20260412142246_MembershipEntityAddedMemberEntityUpdated")]
+    [Migration("20260412163627_MembershipEntityAddedMemberEntityUpdated")]
     partial class MembershipEntityAddedMemberEntityUpdated
     {
         /// <inheritdoc />
@@ -205,7 +205,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
 
                             t.HasCheckConstraint("CK_Memberships_MemberIdNotEmpty", "LTRIM(RTRIM([MemberId])) <> ''");
 
-                            t.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[StartDateUtc] <= ISNULL([EndDateUtc], [StartDateUtc])");
+                            t.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[EndDateUtc] IS NULL OR [StartDateUtc] <= [EndDateUtc]");
                         });
                 });
 
