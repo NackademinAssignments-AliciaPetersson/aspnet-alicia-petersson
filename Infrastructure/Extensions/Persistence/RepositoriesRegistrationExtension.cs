@@ -12,6 +12,7 @@ public static class RepositoriesRegistrationExtension
 
         services.AddScoped<IMemberRepository, MemberRepository>();
         services.AddScoped<IContactRequestRepository, ContactRequestRepository>();
+        services.AddScoped<IMembershipTypeRepository, MembershipTypeRepository>();
 
         return services;
     }
