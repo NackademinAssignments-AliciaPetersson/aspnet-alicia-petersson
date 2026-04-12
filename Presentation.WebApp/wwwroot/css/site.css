@@ -180,7 +180,7 @@ form {
     }
 
     & input,
-    & textarea
+    & textarea,
     & .file-input {
         background-color: var(--clr-neutral-200);
         border: 1px solid var(--clr-neutral-200);
@@ -213,6 +213,14 @@ form {
         border: none;
         border-radius: var(--border-radius-inputs);
         cursor: pointer;
+    }
+
+    & .form-radio-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 2rem;
     }
 }
 
@@ -265,6 +273,14 @@ form {
     transition-property: color, fill;
 }
 
+.primary-btn[disabled="true"],
+.primary-btn[disabled] {
+    background-color: var(--clr-neutral-200);
+    color: var(--clr-neutral-500);
+    fill: var(--clr-neutral-500);
+    border-color: var(--clr-neutral-500);
+}
+
 .icon-btn,
 .btn-blank {
     border: none;
@@ -297,13 +313,19 @@ form {
         display: inline-flex;
         flex-direction: row;
         gap: 0.5rem;
-        align-content: center;
+        align-items: center;
     }
 
     .icon {
         width: var(--bullet-list-icon-size);
         fill: var(--bullet-list-icon-color);
     }
+}
+
+.bullet-list.vertical-list {
+    display: flex;
+    justify-content: center;
+    color: var(--clr-neutral-900);
 }
 
 .badge {
@@ -506,6 +528,10 @@ form {
 
 .small-text {
     font-size: 0.75rem;
+}
+
+.bold {
+    font-weight: var(--fw-bold);
 }
 
 .two-columns {

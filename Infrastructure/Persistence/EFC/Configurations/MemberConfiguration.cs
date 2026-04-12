@@ -1,5 +1,4 @@
-﻿using Domain.Aggregates.Member;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.Persistence.EFC.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

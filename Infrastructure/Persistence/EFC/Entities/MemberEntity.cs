@@ -17,4 +17,5 @@ public sealed class MemberEntity : IEntity<string>
 
     //EFC Navigation props
     public AuthenticationUser? User { get; set; }
+    public ICollection<MembershipEntity> Memberships { get; set; } = [];
 }

@@ -4,18 +4,7 @@
 	<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
 }
 @{
-	var pageTitle = "My Account";
-
-	var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
-	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
-	var currentArea = ViewContext.RouteData.Values["area"]?.ToString();
-
-	bool isLinkActive(string controller, string action, string? area = null)
-	{
-		return string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase)
-		&& string.Equals(currentAction, action, StringComparison.OrdinalIgnoreCase)
-		&& (string.IsNullOrEmpty(area) || string.Equals(currentArea, area, StringComparison.OrdinalIgnoreCase));
-	}
+	var pageTitle = "My Account";	
 }
 @if (!string.IsNullOrWhiteSpace(ViewData["ErrorMessage"]?.ToString()))
 {
@@ -25,64 +14,7 @@
 }
 <h1 class="section-heading page-title">@pageTitle</h1>
 <div class="container section account-page">
-	<aside class="profile-aside">
-		<img class="profile-img"
-			 src="@Model.ProfileImageUrl"
-			 alt="user profile image" />
-		<div class="profile-menu-wrapper">
-			<div class="menu-title-wrapper">
-				<h2 id="profile-menu-title">Menu Options</h2>
-			</div>
-			<nav aria-labelledby="profile-menu-title">
-				<ul class="profile-menu-links">
-					<li class="menu-item">
-						<a class="@(isLinkActive("Home", "AboutMe", "Account") ? "active" : "")"
-							   asp-area="Account"
-							   asp-controller="Home"
-							   asp-action="AboutMe">
-							About Me
-							<partial name="Partials/Icons/_ChevronRight" />
-						</a>
-					</li>
-					<li class="menu-item">
-						<a class="@(isLinkActive("MyMemberships", "Index", "Account") ? "active" : "")"
-							   asp-area="Account"
-							   asp-controller="MyMemberships"
-							   asp-action="Index">
-							My Membership
-							<partial name="Partials/Icons/_ChevronRight" />
-						</a>
-					</li>
-					<li class="menu-item">
-						<a class="@(isLinkActive("MyBookings", "Index", "Account") ? "active" : "")"
-							   asp-area="Account"
-							   asp-controller="MyBookings"
-							   asp-action="Index">
-							My Bookings
-							<partial name="Partials/Icons/_ChevronRight" />
-						</a>
-					</li>
-					<li class="menu-item">
-						<a asp-area="Account"
-							   asp-controller="Home"
-							   asp-action="SignOut">
-							Sign Out
-							<partial name="Partials/Icons/_ChevronRight" />
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-		<div class="remove-account">
-			<p>If you like to cancel your account click below</p>
-			<a class="remove-link"
-				   asp-area="Account"
-				   asp-controller="Home"
-				   asp-action="RemoveAccount">
-				Remove Account
-			</a>
-		</div>
-	</aside>
+	<partial name="Partials/Common/_AccountAside" model="@Model.ProfileImageUrl" />
 	<main>
 		<section class="card about-me-card">
 			<h2 class="section-heading">About Me</h2>

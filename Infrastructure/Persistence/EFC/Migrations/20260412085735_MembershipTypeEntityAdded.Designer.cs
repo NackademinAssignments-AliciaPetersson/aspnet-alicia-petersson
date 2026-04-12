@@ -4,6 +4,7 @@ using Infrastructure.Persistence.EFC.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.EFC.Migrations
 {
     [DbContext(typeof(CoreFitnessContext))]
-    partial class CoreFitnessContextModelSnapshot : ModelSnapshot
+    [Migration("20260412085735_MembershipTypeEntityAdded")]
+    partial class MembershipTypeEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,47 +165,6 @@ namespace Infrastructure.Persistence.EFC.Migrations
                             t.HasCheckConstraint("CK_Members_IdNotEmpty", "LTRIM(RTRIM([Id])) <> ''");
 
                             t.HasCheckConstraint("CK_Members_UserIdNotEmpty", "LTRIM(RTRIM([UserId])) <> ''");
-                        });
-                });
-
-            modelBuilder.Entity("Infrastructure.Persistence.EFC.Entities.MembershipEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("EndDateUtc")
-                        .HasColumnType("datetime2(0)");
-
-                    b.Property<string>("MemberId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("nvarchar(36)");
-
-                    b.Property<int>("MembershipTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("MonthlyPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("StartDateUtc")
-                        .HasColumnType("datetime2(0)");
-
-                    b.HasKey("Id")
-                        .HasName("PK_Memberships_Id");
-
-                    b.HasIndex("MembershipTypeId");
-
-                    b.HasIndex("MemberId", "MembershipTypeId")
-                        .IsUnique()
-                        .HasDatabaseName("UQ_Memberships_MemberId_MembershipTypeId");
-
-                    b.ToTable("Memberships", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_Memberships_IdNotEmpty", "LTRIM(RTRIM([Id])) <> ''");
-
-                            t.HasCheckConstraint("CK_Memberships_MemberIdNotEmpty", "LTRIM(RTRIM([MemberId])) <> ''");
-
-                            t.HasCheckConstraint("CK_Memberships_StartDateBeforeEndDate", "[EndDateUtc] IS NULL OR [StartDateUtc] <= [EndDateUtc]");
                         });
                 });
 
@@ -388,27 +350,6 @@ namespace Infrastructure.Persistence.EFC.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Infrastructure.Persistence.EFC.Entities.MembershipEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Persistence.EFC.Entities.MemberEntity", "Member")
-                        .WithMany("Memberships")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Memberships_Members_MemberId");
-
-                    b.HasOne("Infrastructure.Persistence.EFC.Entities.MembershipTypeEntity", "MembershipType")
-                        .WithMany()
-                        .HasForeignKey("MembershipTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Memberships_MembershipTypes_MembershipTypeId");
-
-                    b.Navigation("Member");
-
-                    b.Navigation("MembershipType");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -458,11 +399,6 @@ namespace Infrastructure.Persistence.EFC.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Infrastructure.Persistence.EFC.Entities.MemberEntity", b =>
-                {
-                    b.Navigation("Memberships");
                 });
 #pragma warning restore 612, 618
         }

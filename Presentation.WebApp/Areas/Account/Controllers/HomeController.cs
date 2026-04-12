@@ -3,7 +3,6 @@ using Application.Abstractions.Services;
 using Application.Modules.Members.Inputs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using Presentation.WebApp.Areas.Account.Models;
 using System.Security.Claims;
 
