@@ -1,4 +1,5 @@
 ﻿using Domain.Aggregates.Members.Entities;
+using Domain.Common.Validators;
 using Domain.Exceptions.Custom;
 
 namespace Domain.Aggregates.Members;
@@ -7,8 +8,8 @@ public sealed class Member
 {
     private Member(string id, string userId, string? firstName, string? lastName, string? profileImageUrl, IReadOnlyCollection<Membership> memberships)
     {
-        Id = id;
-        UserId = userId;
+        Id = GuidValidator.EnsureValidGuid(id);
+        UserId = GuidValidator.EnsureValidGuid(userId);
         FirstName = firstName;
         LastName = lastName;
         ProfileImageUrl = profileImageUrl;
@@ -71,7 +72,7 @@ public sealed class Member
         if (CurrentMembership.Id != membership.Id)
             throw new ValidationDomainException("Can't cancel a membership that is not the current active membership");
 
-        if (_memberships.Any(ms => ms.Id == membership.Id))
+        if (!_memberships.Any(ms => ms.Id == membership.Id))
             throw new ValidationDomainException("Membership does not belong to this member");
 
         membership.Deactivate();

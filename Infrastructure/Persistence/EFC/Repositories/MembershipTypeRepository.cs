@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.Persistence;
 using Domain.Abstractions.Logging;
-using Domain.Aggregates.Members;
 using Domain.Aggregates.Members.Entities;
 using Infrastructure.Persistence.EFC.Contexts;
 using Infrastructure.Persistence.EFC.Entities;

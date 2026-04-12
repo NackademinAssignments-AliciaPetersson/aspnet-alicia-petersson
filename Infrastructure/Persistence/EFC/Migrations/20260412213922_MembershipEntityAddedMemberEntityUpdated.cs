@@ -16,7 +16,7 @@ namespace Infrastructure.Persistence.EFC.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    MemberId = table.Column<string>(type: "nvarchar(36)", maxLength: 36, nullable: false),
+                    MemberId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MembershipTypeId = table.Column<int>(type: "int", nullable: false),
                     StartDateUtc = table.Column<DateTime>(type: "datetime2(0)", nullable: false),
                     EndDateUtc = table.Column<DateTime>(type: "datetime2(0)", nullable: true),
