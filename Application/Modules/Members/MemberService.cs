@@ -196,7 +196,7 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
 
         var membershipInfo = currentMembership is null 
             ? null 
-            : new ActiveMembership(currentMembership.Id, currentMembership.MembershipType.Name, currentMembership.StartDateUtc, currentMembership.MonthlyPrice);
+            : new ActiveMembership(currentMembership.Id, currentMembership.MembershipType.Name, DateOnly.FromDateTime(currentMembership.StartDateUtc), currentMembership.MonthlyPrice);
 
         var details = new MembershipDetails(member.Id, member.UserId, membershipInfo);
 

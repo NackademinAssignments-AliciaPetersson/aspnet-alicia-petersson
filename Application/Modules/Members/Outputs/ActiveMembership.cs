@@ -3,6 +3,6 @@
 public sealed record ActiveMembership(
     string Id,
     string Name,
-    DateTime StartDate,
+    DateOnly StartDate,
     decimal MonthlyPrice
 );

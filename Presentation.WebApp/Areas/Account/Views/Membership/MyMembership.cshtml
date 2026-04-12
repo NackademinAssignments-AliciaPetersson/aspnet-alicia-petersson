@@ -19,7 +19,7 @@
 			<h2 class="section-heading">My Membership</h2>
 			<hr class="divider" />
 
-			@if (Model.ShowChooseMembershipForm)
+			@if (Model.ActiveMembership is null)
 			{
 			<p class="no-active-membership">No Active Membership</p>
 			<p class="divider-with-text"><span>choose membership</span></p>
@@ -59,9 +59,9 @@
 			else
 			{
 			<div class="active-membership card-dark">
-				<h3 class="membership-title">Standard Membership</h3>
-				<p><span class="bold">Start Date:</span> 2026-03-31</p>
-				<p><span class="bold">Price:</span> 495.00/month</p>
+				<h3 class="membership-title">@Model.ActiveMembership.Name</h3>
+				<p><span class="bold">Start Date: </span> @Model.ActiveMembership.StartDate</p>
+				<p><span class="bold">Price: </span> @Model.ActiveMembership.MonthlyPrice /month</p>
 			</div>
 			}
 			
