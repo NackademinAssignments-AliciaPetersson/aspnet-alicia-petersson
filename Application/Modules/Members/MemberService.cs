@@ -75,7 +75,10 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
             return Result.NotFound($"Member with userId ID '{userId}' not found");
 
         await uow.ExecuteInTransactionAsync(async token =>
-        { 
+        {
+            member.RemoveAllMemberships();
+            await memberRepo.UpdateAsync(member.Id, member, ct);
+
             var memberDeleted = await memberRepo.RemoveByIdAsync(member.Id, ct);
             if (!memberDeleted)
             {
