@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Services;
-using Application.Modules.Members;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Areas.Account.Models;
@@ -10,7 +9,7 @@ namespace Presentation.WebApp.Areas.Account.Controllers;
 [Area("Account")]
 [Route("account")]
 [Authorize(Roles = "Member")]
-public class MembershipController(IMemberService memberService) : Controller
+public class MembershipController(IMemberService memberService, IMembershipTypeService membershipTypeService) : Controller
 {
     [HttpGet("my-membership")]
     public async Task<IActionResult> MyMembership()
@@ -23,11 +22,12 @@ public class MembershipController(IMemberService memberService) : Controller
         if (!accountResult.Success)
             return RedirectToAction(nameof(SignOut));
 
+        var membershipTypes = await membershipTypeService.GetMembershipTypesAsync();
+
         var viewModel = new MyMembershipViewModel
         {
             ProfileImageUrl = accountResult.Value?.ImageUrl ?? "/images/default_profile_image.png"
         };
-
 
         return View(viewModel);
     }

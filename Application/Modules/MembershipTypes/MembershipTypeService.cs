@@ -1,13 +1,40 @@
 ﻿using Application.Abstractions.Persistence;
 using Application.Abstractions.Services;
 using Application.Common.Results;
+using Application.Modules.MembershipTypes.Inputs;
 using Application.Modules.MembershipTypes.Outputs;
 using Domain.Aggregates.Members.Entities;
+using Domain.Exceptions.Custom;
 
 namespace Application.Modules.MembershipTypes;
 
-public sealed class MembershipTypeService(IMembershipTypeRepository membershipTypeRepo) : IMembershipTypeService
-{
+public sealed class MembershipTypeService(IMembershipTypeRepository membershipTypeRepo, IUnitOfWork uow) : IMembershipTypeService
+{    
+    public async Task<Result<MembershipTypeOutput?>> CreateMembershipTypeAsync(CreateMembershipTypeInput input, CancellationToken ct = default)
+    {
+        MembershipType membershipTypeInput;
+        try
+        {
+            membershipTypeInput = MembershipType.Create(input.Name, input.BasePrice);
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result<MembershipTypeOutput?>.BadRequest(ex.Message);
+        }
+
+        var existing = await membershipTypeRepo.GetByMembershipNameAsync(input.Name, ct);
+        if (existing is not null)
+            return Result<MembershipTypeOutput?>.Conflict("A Membership type with the same name already exists");
+
+        var created = await membershipTypeRepo.AddAsync(membershipTypeInput, ct);
+        if (created is null)
+            return Result<MembershipTypeOutput?>.Error();
+
+        var saved = await uow.CommitAsync(ct);
+
+        return saved > 0 ? Result<MembershipTypeOutput?>.Ok(ToOutput(created)) : Result<MembershipTypeOutput?>.Error("0 rows affected in database");
+    }
+
     public async Task<Result<MembershipTypeOutput?>> GetMembershipTypeByIdAsync(int id, CancellationToken ct = default)
     {
         if (id < 0)
@@ -31,4 +58,6 @@ public sealed class MembershipTypeService(IMembershipTypeRepository membershipTy
 
         return output;
     }
+
+    
 }

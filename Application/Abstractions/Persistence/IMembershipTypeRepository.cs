@@ -5,4 +5,5 @@ namespace Application.Abstractions.Persistence;
 
 public interface IMembershipTypeRepository : IRepositoryBase<MembershipType, int>
 {
+    Task<MembershipType?> GetByMembershipNameAsync(string name, CancellationToken ct = default);
 }
