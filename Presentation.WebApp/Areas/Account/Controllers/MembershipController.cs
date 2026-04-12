@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions.Services;
-using Application.Modules.MembershipTypes.Outputs;
+using Application.Modules.Members.Inputs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.WebApp.Areas.Account.Models;
@@ -60,6 +60,11 @@ public class MembershipController(IMemberService memberService, IMembershipTypeS
 
         if (!ModelState.IsValid)
             return View(viewModel);
+
+        int.TryParse(viewModel.ChooseMembershipForm.SelectedMembership, out int membershipTypeId);
+
+        var input = new SetMembershipInput(userId, membershipTypeId);
+        var membershipResult = await memberService.SetMembershipAsync(input);
 
         return View(viewModel);
     }

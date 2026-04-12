@@ -12,12 +12,16 @@ using Domain.Exceptions.Custom;
 
 namespace Application.Modules.Members;
 
-public sealed class MemberService(IAuthService authService, ILogger logger, IMemberRepository memberRepo, IAccountService accountService, IUnitOfWork uow) : IMemberService
+public sealed class MemberService(IAuthService authService, ILogger logger, IMemberRepository memberRepo, IAccountService accountService, IUnitOfWork uow, IMembershipTypeRepository membershipTypeRepo) : IMemberService
 {
+    // -- MEMBER --
     public async Task<Result> CreateMemberAsync(CreateMemberInput input, CancellationToken ct = default)
     {
         if (input is null)
             return Result.BadRequest("input model must be provided");
+
+        if (input.Email is null)
+            return Result.BadRequest("Email must be provided");
 
         var existing = await authService.DoesUserExistAsync(input.Email);
         if (existing)
@@ -90,6 +94,7 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         return Result.Ok();
     }
 
+    // -- MEMBER DETAILS --
     public async Task<Result<MemberDetails?>> GetMemberDetailsAsync(string userId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
@@ -140,5 +145,38 @@ public sealed class MemberService(IAuthService authService, ILogger logger, IMem
         }, ct);
 
         return Result.Ok();
+    }
+
+    // -- MEMBERSHIPS
+    public async Task<Result> SetMembershipAsync(SetMembershipInput membershipInput, CancellationToken ct = default)
+    {
+        if (membershipInput is null)
+            return Result.BadRequest("input model must be provided");
+
+        var member = await memberRepo.GetByUserIdAsync(membershipInput.UserId, ct);
+        if (member is null)
+            return Result.NotFound($"Member with UserId '{membershipInput.UserId}' not found");
+
+        var membershipType = await membershipTypeRepo.GetByIdAsync(membershipInput.MembershipTypeId, ct);
+        if (membershipType is null)
+            return Result.NotFound($"membership Type with ID '{membershipInput.MembershipTypeId}' not found");
+
+        try
+        {
+            member.AcquireMembership(membershipType);
+            //var updatedMember = await memberRepo.UpdateAsync(member.Id, member, ct);
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.BadRequest(ex.Message);
+        }
+        catch(Exception ex)
+        {
+            return Result.Error(ex.Message);
+        }
+
+        var saved = await uow.CommitAsync(ct);
+
+        return saved > 0 ? Result.Ok() : Result.Error();
     }
 }

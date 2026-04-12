@@ -50,12 +50,13 @@ public sealed class Member
     public Membership AcquireMembership(MembershipType membershipType)
     {
         if (membershipType is null)
-            throw new NullDomainException("Membership Type is required");
+            throw new ValidationDomainException("Membership Type is required");
 
         if (CurrentMembership is not null)
             throw new ValidationDomainException("Can't aquire new membership when member already has an active membership");
 
-        var membership = Membership.Create(membershipType, DateTime.UtcNow, membershipType.BasePrice);
+        var membership = Membership.Create(membershipType, DateTime.UtcNow, membershipType.BasePrice);        
+
         _memberships.Add(membership);        
 
         return membership;
@@ -68,6 +69,9 @@ public sealed class Member
 
         if (CurrentMembership.Id != membership.Id)
             throw new ValidationDomainException("Can't cancel a membership that is not the current active membership");
+
+        if (_memberships.Any(ms => ms.Id == membership.Id))
+            throw new ValidationDomainException("Membership does not belong to this member");
 
         membership.Deactivate();
     }

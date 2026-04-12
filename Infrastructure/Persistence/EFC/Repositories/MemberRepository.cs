@@ -32,6 +32,7 @@ public class MemberRepository(CoreFitnessContext context, ILogger logger) : Repo
         entity.FirstName = model.FirstName;
         entity.LastName = model.LastName;
         entity.ProfileImageUrl = model.ProfileImageUrl;
+
         entity.UpdatedAtUtc = DateTime.UtcNow;
     }
 
