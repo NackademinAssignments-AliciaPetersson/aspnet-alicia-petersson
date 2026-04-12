@@ -29,6 +29,13 @@ public class Membership_Tests
     }
 
     [Fact]
+    public void Create_ShouldThrow_WhenMembershipTypeIsNull()
+    {
+        Assert.Throws<ValidationDomainException>(() =>
+            Membership.Create(null!, DateTime.UtcNow.AddDays(-1), 100));
+    }
+
+    [Fact]
     public void Create_ShouldThrow_WhenPriceNegative()
     {
         var type = CreateValidType();
