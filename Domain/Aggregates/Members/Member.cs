@@ -76,4 +76,9 @@ public sealed class Member
 
         membership.Deactivate();
     }
+
+    public void RemoveAllMemberships()
+    {
+        _memberships.Clear();
+    }
 }
