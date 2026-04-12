@@ -16,7 +16,6 @@ public sealed class PersistenceFixture : IAsyncLifetime
         {
             await _conn.CloseAsync();
             await _conn.DisposeAsync();
-            //_conn = null;
         }
     }
 
@@ -25,13 +24,15 @@ public sealed class PersistenceFixture : IAsyncLifetime
         _conn = new SqliteConnection("Data Source=:memory:;");
         await _conn.OpenAsync();
 
-        Options = new DbContextOptionsBuilder<CoreFitnessContext>().UseSqlite().Options;
+        Options = new DbContextOptionsBuilder<CoreFitnessContext>().UseSqlite(_conn).Options;
 
         await using var context = new CoreFitnessContext(Options);
+        await context.Database.OpenConnectionAsync();
         await context.Database.EnsureCreatedAsync();
     }
 }
 
+[CollectionDefinition(Name)]
 public sealed class PersistenceCollection : ICollectionFixture<PersistenceFixture>
 {
     public const string Name = "Persistence";
