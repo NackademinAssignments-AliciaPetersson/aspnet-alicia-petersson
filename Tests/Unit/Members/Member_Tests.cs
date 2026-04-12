@@ -21,6 +21,27 @@ public class Member_Tests
         Assert.Empty(member.Memberships);
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void Create_ShouldThrow_WhenUserIdIsInvalid(string? userId)
+    {
+        Assert.Throws<ValidationDomainException>(() =>
+            Member.Create(userId!));
+    }
+
+    [Fact]
+    public void Rehydrated_ShouldCreate_WhenValidData()
+    {
+        var id = Guid.NewGuid().ToString();
+        var userId = Guid.NewGuid().ToString();
+
+        var member = Member.Rehydrated(id, userId);
+
+        Assert.Equal(id, member.Id);
+        Assert.Equal(userId, member.UserId);
+    }
+
     [Fact]
     public void AcquireMembership_ShouldAddMembership_WhenNoneExists()
     {
