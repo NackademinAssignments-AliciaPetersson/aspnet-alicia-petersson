@@ -1,5 +1,4 @@
-﻿using Domain.Aggregates.Member;
-using Infrastructure.Identity;
+﻿using Infrastructure.Identity;
 using Infrastructure.Persistence.EFC.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

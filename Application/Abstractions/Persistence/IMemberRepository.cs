@@ -1,7 +1,7 @@
 ﻿using Domain.Abstractions.Persistence.Repositories;
-using System.Linq.Expressions;
+using Domain.Aggregates.Members;
 
-namespace Domain.Aggregates.Member;
+namespace Application.Abstractions.Persistence;
 
 public interface IMemberRepository : IRepositoryBase<Member, string>
 {

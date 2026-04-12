@@ -1,7 +1,6 @@
 ﻿using Application.Abstractions.Services;
 using Application.Modules.ContactRequests;
 using Application.Modules.Members;
-using Domain.Aggregates.Member;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions;

@@ -6,7 +6,7 @@ using Application.Common.Results;
 using Application.Modules.Members.Inputs;
 using Application.Modules.Members.Outputs;
 using Domain.Abstractions.Logging;
-using Domain.Aggregates.Member;
+using Domain.Aggregates.Members;
 using Domain.Common.Validators;
 using Domain.Exceptions.Custom;
 

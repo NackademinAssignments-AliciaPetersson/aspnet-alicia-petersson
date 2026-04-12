@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Persistence;
-using Domain.Aggregates.Member;
 using Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 

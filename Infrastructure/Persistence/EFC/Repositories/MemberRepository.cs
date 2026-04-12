@@ -1,5 +1,6 @@
-﻿using Domain.Abstractions.Logging;
-using Domain.Aggregates.Member;
+﻿using Application.Abstractions.Persistence;
+using Domain.Abstractions.Logging;
+using Domain.Aggregates.Members;
 using Infrastructure.Persistence.EFC.Contexts;
 using Infrastructure.Persistence.EFC.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +32,7 @@ public class MemberRepository(CoreFitnessContext context, ILogger logger) : Repo
         entity.FirstName = model.FirstName;
         entity.LastName = model.LastName;
         entity.ProfileImageUrl = model.ProfileImageUrl;
+        entity.UpdatedAtUtc = DateTime.UtcNow;
     }
 
     protected override Member ToDomainModel(MemberEntity entity)
