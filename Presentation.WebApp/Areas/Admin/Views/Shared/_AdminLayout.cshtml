@@ -1,0 +1,44 @@
+﻿﻿@{
+var pageTitle = !string.IsNullOrWhiteSpace(ViewData["Title"]?.ToString())
+        ? $"{ViewData["Title"]} | CoreFitness" : "CoreFitness | Gym and Fitness";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@pageTitle</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+    <link rel="stylesheet" href="~/Presentation.WebApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="layout admin-layout">
+        <aside class="menu-aside">
+            
+            <a class="logo" href="/">
+                <img src="~/images/logotype.png" alt="CoreFitness Logo" />
+            </a>
+            <div>
+                <h2 class="dash-nav-heading">Menu options</h2>            
+                <partial name="Partials/Common/_DashboardNav" />
+            </div>
+        </aside>        
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <label>Search</label>
+                <input type="search"/>
+            </header>
+            @RenderBody()
+        </main>
+        
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -21,6 +21,7 @@
     --heading-text-color: var(--clr-primary-400);
     --body-text-color: var(--clr-neutral-500);
     --header-text-color: var(--clr-neutral-100);
+    --header-bg-color: var(--clr-primary-500);
     --divider-color: hsl(from var(--clr-accent-400) h s l / 0.2);
 
     --ff-poppins: "Poppins", sans-serif;
@@ -120,6 +121,11 @@ address {
 
 .auth-layout {
     grid-template-rows: auto 1fr;
+}
+
+.admin-layout {
+    grid-template-columns: auto 1fr;
+    padding: 0;
 }
 
 .container {
@@ -328,7 +334,8 @@ form {
     color: var(--clr-neutral-900);
 }
 
-.badge {
+.badge,
+.badge-accent {
     font-size: var(--fs-badge);
     font-weight: var(--fw-semi-bold);
     font-family: var(--ff-badge);
@@ -350,11 +357,19 @@ form {
     }
 }
 
+.badge-accent {
+    color: var(--clr-primary-400);
+    background-color: var(--clr-accent-400);
+
+    &::before {
+        background-color: var(--clr-primary-400);
+    }
+}
+
 .section {
     --section-block-margin: 7rem;
     --section-row-gap: 3rem;
     --section-column-gap: 3rem;
-
     display: grid;
     row-gap: var(--section-row-gap);
     column-gap: var(--section-column-gap);
@@ -532,6 +547,10 @@ form {
 
 .bold {
     font-weight: var(--fw-bold);
+}
+
+.full-width {
+    max-width: 100%;
 }
 
 .two-columns {

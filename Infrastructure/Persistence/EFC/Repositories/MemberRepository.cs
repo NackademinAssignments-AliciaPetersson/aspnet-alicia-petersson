@@ -141,7 +141,8 @@ public class MemberRepository(CoreFitnessContext context, ILogger logger) : Repo
             FirstName = model.FirstName,
             LastName = model.LastName,
             ProfileImageUrl = model.ProfileImageUrl,
-            Memberships = memberships
+            Memberships = memberships,
+            CreatedAtUtc = DateTime.UtcNow,
         };
         return entity;
     }

@@ -34,8 +34,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="right-column">
-		<h2 class="section-sub-heading">@formHeading</h2>
+	<div class="right-column @(isContactSubmitSuccess ? "text-center" : "")">
+		<h2 class="section-sub-heading full-width">@formHeading</h2>
 		<p>@paragraphText</p>
 		@if (isContactSubmitSuccess == false)
 		{

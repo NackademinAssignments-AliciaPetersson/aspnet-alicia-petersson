@@ -1,0 +1,36 @@
+﻿<nav class="menu">
+    <ul >
+		<li>
+			<a class="menu-item active"
+				   asp-area="Admin"
+				   asp-controller="Home"
+				   asp-action="Index">
+				Dashboard
+			</a>
+		</li>
+		<li>
+			<a class="menu-item"
+				   asp-area="Admin"
+				   asp-controller="AdminWorkouts"
+				   asp-action="Workouts">
+				Workouts
+			</a>
+		</li>
+		<li>
+			<a class="menu-item"
+				   asp-area="Admin"
+				   asp-controller="AdminMembers"
+				   asp-action="Members">
+				Members
+			</a>
+		</li>
+		<li>
+			<a class="menu-item"
+				   asp-area="Account"
+				   asp-controller="Home"
+				   asp-action="SignOut">
+				Sign Out
+			</a>
+		</li>		
+    </ul>
+</nav>
